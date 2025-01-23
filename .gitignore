@@ -66,3 +66,11 @@ artifacts/
 /Code/AISoccerAPI/obj/Debug/net8.0/apphost.exe
 /Code/AISoccerAPI/obj/Debug/net8.0/ref/AISoccerAPI.dll
 /Code/AISoccerAPI/obj/Debug/net8.0/refint/AISoccerAPI.dll
+/MLSoccer/CSV/20250122_Away.zip
+/MLSoccer/CSV/20250122_Home.zip
+/MLSoccer/CSV/20250122_MatchFeatures.csv
+/MLSoccer/CSV/20250122_Prediction.csv
+/MLSoccer/CSV/20250123_MatchFeatures.csv
+/MLSoccer/CSV/20250123_Prediction.csv
+/MLSoccer/CSV/Away.zip
+/MLSoccer/CSV/Home.zip
