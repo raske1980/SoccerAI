@@ -65,3 +65,7 @@ publish/
 *.config/*
 *.config.backup
 **/migrations/**
+/AISoccerAPI/obj/Debug/net8.0/AISoccerAPI.AssemblyInfo.cs
+/AISoccerAPI/obj/Debug/net8.0/AISoccerAPI.AssemblyInfoInputs.cache
+/AISoccerAPI/obj/Debug/net8.0/AISoccerAPI.assets.cache
+/AISoccerAPI/obj/Debug/net8.0/AISoccerAPI.GeneratedMSBuildEditorConfig.editorconfig
