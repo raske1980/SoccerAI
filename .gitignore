@@ -1,0 +1,52 @@
+# Ignore build results
+bin/
+obj/
+
+# User-specific files
+*.rsuser
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Logs
+*.log
+*.tlog
+*.vscode/
+*.ide.*
+*.ncrunch*
+
+# Temporary files
+*.tmp
+*.temp
+~$*
+
+# Compiled DLLs and EXEs
+*.dll
+*.exe
+*.pdb
+
+# Dependency directories
+packages/
+.vscode/
+.vs/
+
+# Rider projects
+.idea/
+*.sln.iml
+
+# Debug/Release folders
+Debug/
+Release/
+x64/
+x86/
+out/
+build/
+TestResults/
+
+# Dotnet specific
+*.dotnetwatch
+*.generated.cs
+project.lock.json
+project.fragment.lock.json
+artifacts/
