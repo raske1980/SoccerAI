@@ -2,6 +2,10 @@
 bin/
 obj/
 
+# Ignore Debug build output directories
+bin/Debug/
+obj/Debug/
+
 # User-specific files
 *.rsuser
 *.suo
