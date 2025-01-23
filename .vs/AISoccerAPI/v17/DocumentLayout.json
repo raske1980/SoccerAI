@@ -39,8 +39,7 @@
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAAJAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
               "WhenOpened": "2025-01-23T17:03:24.755Z",
-              "IsPinned": true,
-              "EditorCaption": ""
+              "IsPinned": true
             },
             {
               "$type": "Bookmark",
@@ -54,7 +53,7 @@
               "RelativeDocumentMoniker": "AISoccerAPI\\Program.cs",
               "ToolTip": "C:\\projekti\\SoccerAI\\AISoccerAPI\\Program.cs",
               "RelativeToolTip": "AISoccerAPI\\Program.cs",
-              "ViewState": "AQIAACEAAAAAAAAAAAAAAEgAAAAjAAAA",
+              "ViewState": "AQIAAAYAAAAAAAAAAAAAAFIAAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T16:59:41.563Z",
               "EditorCaption": ""
@@ -69,8 +68,7 @@
               "RelativeToolTip": "AISoccerAPI\\API\\SoccerAPI\\SoccerLeagueDetail\\SoccerLeagueData.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAABIAAABkAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T16:59:29.227Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T16:59:29.227Z"
             },
             {
               "$type": "Document",
@@ -82,8 +80,7 @@
               "RelativeToolTip": "AISoccerAPI\\API\\FootballAPI\\Leagues\\FootballAPILeaguesResponse.cs",
               "ViewState": "AQIAAAMAAAAAAAAAAAAAAAQAAAAnAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-23T16:58:16.286Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-23T16:58:16.286Z"
             }
           ]
         }
