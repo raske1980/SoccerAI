@@ -9,6 +9,7 @@ using AISoccerAPI.Calculation;
 using AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures;
 using AISoccerAPI.Data;
 using RestSharp;
+using Newtonsoft.Json;
 
 try
 {
@@ -35,6 +36,9 @@ try
     var matchFeaturesCSVFileName = configuration["AppSettings:matchFeaturesCSVFileName"];
     var csvFilePath = configuration["AppSettings:csvFilePath"] + DateTime.Now.ToString("yyyyMMdd") + "_" + matchFeaturesCSVFileName;
     var predictoinCSVFileName = configuration["AppSettings:predictionCSVFileName"];
+    //football api
+    var footballAPIUrl = configuration["FootballAPI:apiURL"];
+    var footballAPIKey = configuration["FootballAPI:key"];
 
     #endregion
 
@@ -66,13 +70,14 @@ try
 
     #region New Sources
 
-    //for new matches
+    //for new matches, Football API
     var client = new RestClient("https://v3.football.api-sports.io/leagues");
     var request = new RestRequest();
-    request.AddHeader("x-rapidapi-key", "0761875f04ccc598b6815cc8780ac0f3");
-    request.AddHeader("x-rapidapi-host", "v3.football.api-sports.io");
+    request.AddHeader("x-rapidapi-key", footballAPIKey);
+    request.AddHeader("x-rapidapi-host", footballAPIUrl);
     RestResponse response = client.Execute(request);
-    Console.WriteLine(response.Content);
+    var apiLeagueDetailResponses = JsonConvert.DeserializeObject<FootballAPILeaguesResponse>(response.Content);
+    var apiFootballLeagueIds = apiLeagueDetailResponses.Response.FindAll(x=>x.League.Type == "League").ToList().Select(x=>x.League.Id).ToList();    
 
     #endregion
 }
