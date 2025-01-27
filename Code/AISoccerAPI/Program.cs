@@ -10,6 +10,7 @@ using AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures;
 using AISoccerAPI.Data;
 using RestSharp;
 using Newtonsoft.Json;
+using AISoccerAPI.Consts;
 
 try
 {
@@ -76,38 +77,54 @@ try
     request.AddHeader("x-rapidapi-key", footballAPIKey);
     request.AddHeader("x-rapidapi-host", footballAPIUrl);
     RestResponse response = client.Execute(request);
-    var apiLeagueDetailResponses = JsonConvert.DeserializeObject<FootballAPILeaguesResponse>(response.Content);
-    var apiFootballLeagueIds = apiLeagueDetailResponses.Response.FindAll(x => x.League.Type == "League").ToList().Select(x => x.League.Id).ToList();
+    var apiLeagueDetailResponses = JsonConvert.DeserializeObject<FootballAPILeaguesResponse>(response.Content);   
     var apiFootballLeagues = apiLeagueDetailResponses.Response.FindAll(x => x.League.Type == "League").ToList();
 
+    //create list of exclusions (leagues that we are getting through Soccer API)
+    var footballAPIMatchExclusions = new List<int>();
+    var soccerApiExclusions = new Exclusions().GetSoccerApiLeaaguesByCountry();
+    foreach(var soccerAPIExclusion in soccerApiExclusions)
+    {
+        var matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x => 
+                                                                             x.League.Name.ToLower().Trim() == soccerAPIExclusion.league.ToLower().Trim() &&
+                                                                             x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());
+        if (matchedLeague == null)                    
+            matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x =>
+                                                                             x.League.Name.ToLower().Trim() == soccerAPIExclusion.footballAPIMappingName.ToLower().Trim() &&
+                                                                             x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());        
+
+        if (matchedLeague != null)
+            footballAPIMatchExclusions.Add(matchedLeague.League.Id);
+    }
+
     //get leagues by country
-    var client2 = new RestClient("https://v3.football.api-sports.io/leagues?code=FR");
-    var request2 = new RestRequest();
-    request2.AddHeader("x-rapidapi-key", footballAPIKey);
-    request2.AddHeader("x-rapidapi-host", footballAPIUrl);
-    RestResponse response2 = client2.Execute(request2);   
+    //var client2 = new RestClient("https://v3.football.api-sports.io/leagues?code=FR");
+    //var request2 = new RestRequest();
+    //request2.AddHeader("x-rapidapi-key", footballAPIKey);
+    //request2.AddHeader("x-rapidapi-host", footballAPIUrl);
+    //RestResponse response2 = client2.Execute(request2);   
 
-    //get season info by id
-    var client1 = new RestClient("https://v3.football.api-sports.io/leagues?season=2021");
-    var request1 = new RestRequest();
-    request1.AddHeader("x-rapidapi-key", footballAPIKey);
-    request1.AddHeader("x-rapidapi-host", footballAPIUrl);
-    RestResponse response1 = client1.Execute(request1);    
+    ////get season info by id
+    //var client1 = new RestClient("https://v3.football.api-sports.io/leagues?season=2021");
+    //var request1 = new RestRequest();
+    //request1.AddHeader("x-rapidapi-key", footballAPIKey);
+    //request1.AddHeader("x-rapidapi-host", footballAPIUrl);
+    //RestResponse response1 = client1.Execute(request1);    
 
-    //get match info by season id and match id, https://v3.football.api-sports.io/leagues?season=2019&id=39");
-    var client3 = new RestClient("https://v3.football.api-sports.io/leagues?season=2021&id=61");
-    var request3 = new RestRequest();
-    request3.AddHeader("x-rapidapi-key", footballAPIKey);
-    request3.AddHeader("x-rapidapi-host", footballAPIUrl);
-    RestResponse response3 = client3.Execute(request3);    
+    ////get match info by season id and match id, https://v3.football.api-sports.io/leagues?season=2019&id=39");
+    //var client3 = new RestClient("https://v3.football.api-sports.io/leagues?season=2021&id=61");
+    //var request3 = new RestRequest();
+    //request3.AddHeader("x-rapidapi-key", footballAPIKey);
+    //request3.AddHeader("x-rapidapi-host", footballAPIUrl);
+    //RestResponse response3 = client3.Execute(request3);    
 
-    //get fixtures by season id, https://v3.football.api-sports.io/fixtures?league=39&season=2023
-    var client4 = new RestClient("https://v3.football.api-sports.io/fixtures?league=39&season=2023");
-    var request4 = new RestRequest();
-    request4.AddHeader("x-rapidapi-key", footballAPIKey);
-    request4.AddHeader("x-rapidapi-host", footballAPIUrl);
-    RestResponse response4 = client4.Execute(request4);    
-    var fixtureResponse = JsonConvert.DeserializeObject<FootbalAPIFixtureResponse>(response4.Content);
+    ////get fixtures by season id, https://v3.football.api-sports.io/fixtures?league=39&season=2023
+    //var client4 = new RestClient("https://v3.football.api-sports.io/fixtures?league=39&season=2023");
+    //var request4 = new RestRequest();
+    //request4.AddHeader("x-rapidapi-key", footballAPIKey);
+    //request4.AddHeader("x-rapidapi-host", footballAPIUrl);
+    //RestResponse response4 = client4.Execute(request4);    
+    //var fixtureResponse = JsonConvert.DeserializeObject<FootbalAPIFixtureResponse>(response4.Content);
     
     //work flow will be like this, first call I am going to get all the leagues,
     //I must create exclusion list of leagues that I already have,
