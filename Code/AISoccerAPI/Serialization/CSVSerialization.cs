@@ -13,11 +13,14 @@ namespace AISoccerAPI.Serialization
 {
     public class CSVSerialization
     {
-        public void SaveFeaturesToCsv(List<MatchFeatures> features, string filePath)
+        public void SaveFeaturesToCsv(List<MatchFeatures> features,
+            string folderPath,
+            string filePath)
         {
-            if(File.Exists(filePath)) 
-                File.Delete(filePath);
-            using (var writer = new StreamWriter(filePath))
+            var csvFullPath = folderPath + filePath;
+            if (File.Exists(csvFullPath)) 
+                File.Delete(csvFullPath);
+            using (var writer = new StreamWriter(csvFullPath))
             using (var csv = new CsvWriter(writer, new CsvConfiguration(System.Globalization.CultureInfo.InvariantCulture)))
             {
                 csv.WriteRecords(features);

@@ -72,30 +72,30 @@ try
     #region New Sources
 
     //for new matches, Football API, get all leagues
-    var client = new RestClient("https://v3.football.api-sports.io/leagues");
-    var request = new RestRequest();
-    request.AddHeader("x-rapidapi-key", footballAPIKey);
-    request.AddHeader("x-rapidapi-host", footballAPIUrl);
-    RestResponse response = client.Execute(request);
-    var apiLeagueDetailResponses = JsonConvert.DeserializeObject<FootballAPILeaguesResponse>(response.Content);   
-    var apiFootballLeagues = apiLeagueDetailResponses.Response.FindAll(x => x.League.Type == "League").ToList();
+    //var client = new RestClient("https://v3.football.api-sports.io/leagues");
+    //var request = new RestRequest();
+    //request.AddHeader("x-rapidapi-key", footballAPIKey);
+    //request.AddHeader("x-rapidapi-host", footballAPIUrl);
+    //RestResponse response = client.Execute(request);
+    //var apiLeagueDetailResponses = JsonConvert.DeserializeObject<FootballAPILeaguesResponse>(response.Content);   
+    //var apiFootballLeagues = apiLeagueDetailResponses.Response.FindAll(x => x.League.Type == "League").ToList();
 
-    //create list of exclusions (leagues that we are getting through Soccer API)
-    var footballAPIMatchExclusions = new List<int>();
-    var soccerApiExclusions = new Exclusions().GetSoccerApiLeaaguesByCountry();
-    foreach(var soccerAPIExclusion in soccerApiExclusions)
-    {
-        var matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x => 
-                                                                             x.League.Name.ToLower().Trim() == soccerAPIExclusion.league.ToLower().Trim() &&
-                                                                             x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());
-        if (matchedLeague == null)                    
-            matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x =>
-                                                                             x.League.Name.ToLower().Trim() == soccerAPIExclusion.footballAPIMappingName.ToLower().Trim() &&
-                                                                             x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());        
+    ////create list of exclusions (leagues that we are getting through Soccer API)
+    //var footballAPIMatchExclusions = new List<int>();
+    //var soccerApiExclusions = new Exclusions().GetSoccerApiLeaaguesByCountry();
+    //foreach(var soccerAPIExclusion in soccerApiExclusions)
+    //{
+    //    var matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x => 
+    //                                                                         x.League.Name.ToLower().Trim() == soccerAPIExclusion.league.ToLower().Trim() &&
+    //                                                                         x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());
+    //    if (matchedLeague == null)                    
+    //        matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x =>
+    //                                                                         x.League.Name.ToLower().Trim() == soccerAPIExclusion.footballAPIMappingName.ToLower().Trim() &&
+    //                                                                         x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());        
 
-        if (matchedLeague != null)
-            footballAPIMatchExclusions.Add(matchedLeague.League.Id);
-    }
+    //    if (matchedLeague != null)
+    //        footballAPIMatchExclusions.Add(matchedLeague.League.Id);
+    //}
 
     //get leagues by country
     //var client2 = new RestClient("https://v3.football.api-sports.io/leagues?code=FR");

@@ -45,8 +45,8 @@ namespace AISoccerAPI.ML
             var mlContext = new MLContext();
 
             //load latest models (Home and Away)
-            var allHomeModels = Directory.GetFiles(path).ToList().Where(x=> x.Contains("Home")).Select(x => x).ToList();
-            var allAwayModels = Directory.GetFiles(path).ToList().Where(x => x.Contains("Away")).Select(x => x).ToList();
+            var allHomeModels = Directory.GetFiles(path).ToList().Where(x=> x.Contains("_Home")).Select(x => x).ToList();
+            var allAwayModels = Directory.GetFiles(path).ToList().Where(x => x.Contains("_Away")).Select(x => x).ToList();
 
             string latestHomeModel = string.Empty;
             string latestAwayModel = string.Empty;
@@ -59,9 +59,9 @@ namespace AISoccerAPI.ML
                 var fileNameArray = fileName.Split(new char[1] { '_' });
                 if(fileNameArray.Length > 1)
                 {
-                    int year = Int32.Parse(fileNameArray[1].Substring(0, 4));
-                    int month = Int32.Parse(fileNameArray[1].Substring(4, 2));
-                    int day = Int32.Parse(fileNameArray[1].Substring(6, 2));
+                    int year = Int32.Parse(fileNameArray[0].Substring(0, 4));
+                    int month = Int32.Parse(fileNameArray[0].Substring(4, 2));
+                    int day = Int32.Parse(fileNameArray[0].Substring(6, 2));
                     DateTime homeDateTime = new DateTime(year, month, day); 
                     homeTimeList.Add(homeDateTime);
                 }                                    
@@ -75,9 +75,9 @@ namespace AISoccerAPI.ML
                 var fileNameArray = fileName.Split(new char[1] { '_' });
                 if (fileNameArray.Length > 1)
                 {
-                    int year = Int32.Parse(fileNameArray[1].Substring(0, 4));
-                    int month = Int32.Parse(fileNameArray[1].Substring(4, 2));
-                    int day = Int32.Parse(fileNameArray[1].Substring(6, 2));
+                    int year = Int32.Parse(fileNameArray[0].Substring(0, 4));
+                    int month = Int32.Parse(fileNameArray[0].Substring(4, 2));
+                    int day = Int32.Parse(fileNameArray[0].Substring(6, 2));
                     DateTime homeDateTime = new DateTime(year, month, day);
                     awayTimeList.Add(homeDateTime);
                 }

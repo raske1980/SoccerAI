@@ -29,7 +29,7 @@ namespace AISoccerAPI.Data
                 matchFeatures.AddRange(await new CalculateSoccerAPI().CalculateMatchFeatures(leagueDetails, user, token));
             }
 
-            new CSVSerialization().SaveFeaturesToCsv(matchFeatures, csvFilePath);
+            new CSVSerialization().SaveFeaturesToCsv(matchFeatures, folderPath, csvFilePath);
 
             new TrainModel().StartTrainModel(folderPath, matchFeaturesCSVFileName);
         }
