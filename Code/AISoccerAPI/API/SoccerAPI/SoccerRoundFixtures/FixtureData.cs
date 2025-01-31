@@ -38,7 +38,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 
             //load past data from the excel
             var pastMatches = new List<MatchFeatures>();
-            using (var reader = new StreamReader(excelPath))
+            using (var reader = new StreamReader(modelPath + excelPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 pastMatches = csv.GetRecords<MatchFeatures>().ToList();               
