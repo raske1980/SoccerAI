@@ -7,30 +7,6 @@ using System.Threading.Tasks;
 
 namespace AISoccerAPI.Data
 {
-
-
-//    {
-//    "AppSettings": {
-//        "baseFolderPath": "C:\\projekti\\SoccerAI\\MLSoccer\\CSV\\",
-//        "matchFeaturesCSVFileName": "MatchFeatures.csv",
-//        "predictionCSVFileName": "Prediction.csv",
-//        "trainData": "false",
-//        "predictData": "false"
-//    },
-//    "SoccerAPI": {
-//    "baseFolderPath": "C:\\projekti\\SoccerAI\\MLSoccer\\CSV\\SoccerAPI\\",
-//        "user": "raske1980",
-//        "token": "e80623ecb0540b16a0359477e614124c",
-//        "soccerAPILeagueIds": "637,3104,3060,2878,719,721,594,764,583,574,1609,1580,1082,1005,580,581,765,592,1937,638",
-//        "predictLeagueIDs": "583,574,580,581"
-//    },
-//    "FootballAPI": {
-//    "baseFolderPath": "C:\\projekti\\SoccerAI\\MLSoccer\\CSV\\FootballAPI\\",
-//        "apiURL": "v3.football.api-sports.io",
-//        "key": "0761875f04ccc598b6815cc8780ac0f3"
-//    }
-//}
-
     public class AppConfig
     {
         public AppSettingsConfig AppSettingsConfig { get; set; }
