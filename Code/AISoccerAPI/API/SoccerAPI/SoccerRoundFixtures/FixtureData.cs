@@ -24,9 +24,8 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
     {
         public async Task<List<MatchPredictionResult>> GetFixturesPrediction(string user, 
             string token, 
-            string leaguId, 
-            string excelPath,
-            string modelPath)
+            string leaguId,
+            string csvModelPath)
         {
             //get fixtures from the API
             var soccerLeague = await new GetLeagueDetail().GetSoccerLeagueAsync(user,token, leaguId);
@@ -38,14 +37,14 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 
             //load past data from the excel
             var pastMatches = new List<MatchFeatures>();
-            using (var reader = new StreamReader(modelPath + excelPath))
+            using (var reader = new StreamReader(csvModelPath))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 pastMatches = csv.GetRecords<MatchFeatures>().ToList();               
             }
 
             //load models
-            var models = new SaveLoadModel().LoadModels(modelPath);    
+            var models = new SaveLoadModel().LoadModels(new FileInfo(csvModelPath).Directory.FullName);    
             
             List<MatchPredictionResult> predictions = new List<MatchPredictionResult>();
 

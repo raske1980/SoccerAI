@@ -12,12 +12,11 @@ namespace AISoccerAPI.ML
 {
     public class TrainModel
     {
-        public void StartTrainModel(string path, string fileName)
+        public void StartTrainModel(string csvFilePath)
         {
             //load and prepare data
-            var mlContext = new MLContext();
-            string dataPath = path + fileName;
-            IDataView data = mlContext.Data.LoadFromTextFile<MatchFeatures>(dataPath, separatorChar: ',', hasHeader: true);
+            var mlContext = new MLContext();           
+            IDataView data = mlContext.Data.LoadFromTextFile<MatchFeatures>(csvFilePath, separatorChar: ',', hasHeader: true);            
 
             // Split data
             var split = mlContext.Data.TrainTestSplit(data, testFraction: 0.2);
@@ -46,7 +45,8 @@ namespace AISoccerAPI.ML
             var awayModel = awayPipeline.Fit(trainingData);
 
             //save model to the disk
-            new SaveLoadModel().SaveModel(path, homeModel,awayModel, trainingData); 
+            FileInfo fInfo = new FileInfo(csvFilePath);            
+            new SaveLoadModel().SaveModel(fInfo.Directory.FullName, homeModel,awayModel, trainingData); 
         }
 
         

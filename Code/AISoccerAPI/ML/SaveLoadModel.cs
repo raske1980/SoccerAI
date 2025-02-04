@@ -36,8 +36,8 @@ namespace AISoccerAPI.ML
             }
 
             //save new models
-            mlContext.Model.Save(homeModel, trainingData.Schema, path + DateTime.Now.ToString("yyyyMMdd") + "_" + "Home.zip");
-            mlContext.Model.Save(awayModel, trainingData.Schema, path + DateTime.Now.ToString("yyyyMMdd") + "_" + "Away.zip");
+            mlContext.Model.Save(homeModel, trainingData.Schema, path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "_" + "Home.zip");
+            mlContext.Model.Save(awayModel, trainingData.Schema, path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "_" + "Away.zip");
         }
 
         public (ITransformer loadedHomeModel, ITransformer loadedAwayModel) LoadModels(string path)
@@ -87,8 +87,8 @@ namespace AISoccerAPI.ML
             awayTimeList.Sort();
 
             //load models
-            ITransformer loadedHomeModel = mlContext.Model.Load(path + homeTimeList[homeTimeList.Count - 1].ToString("yyyyMMdd") + "_" + "Home.zip", out var homeModelInputSchema);
-            ITransformer loadedAwayModel = mlContext.Model.Load(path + awayTimeList[awayTimeList.Count - 1].ToString("yyyyMMdd") + "_" + "Away.zip", out var awayModelInputSchema);
+            ITransformer loadedHomeModel = mlContext.Model.Load(path + "\\" + homeTimeList[homeTimeList.Count - 1].ToString("yyyyMMdd") + "_" + "Home.zip", out var homeModelInputSchema);
+            ITransformer loadedAwayModel = mlContext.Model.Load(path + "\\" + awayTimeList[awayTimeList.Count - 1].ToString("yyyyMMdd") + "_" + "Away.zip", out var awayModelInputSchema);
             return (loadedHomeModel, loadedAwayModel);
         }
     }

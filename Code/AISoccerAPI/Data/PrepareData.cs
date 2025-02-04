@@ -16,9 +16,7 @@ namespace AISoccerAPI.Data
         public async Task PrepareDataForTraining(string leagueIds,
             string user,
             string token,
-            string csvFilePath,
-            string folderPath,
-            string matchFeaturesCSVFileName)
+            string csvFilePath)
         {
             //call api, transform data, save to csv
             var leagudeIdsArr = leagueIds.Split(new char[1] { ',' });
@@ -29,9 +27,9 @@ namespace AISoccerAPI.Data
                 matchFeatures.AddRange(await new CalculateSoccerAPI().CalculateMatchFeatures(leagueDetails, user, token));
             }
 
-            new CSVSerialization().SaveFeaturesToCsv(matchFeatures, folderPath, csvFilePath);
+            new CSVSerialization().SaveFeaturesToCsv(matchFeatures, csvFilePath);
 
-            new TrainModel().StartTrainModel(folderPath, matchFeaturesCSVFileName);
+            new TrainModel().StartTrainModel(csvFilePath);
         }
     }
 }

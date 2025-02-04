@@ -25,46 +25,39 @@ try
                 })
                 .Build();
     var configuration = host.Services.GetService<IConfiguration>();
-
-    //load settings
-    //soccer api settings
-    var user = configuration["SoccerAPI:user"];
-    var token = configuration["SoccerAPI:token"];
-    var leagueIds = configuration["SoccerAPI:soccerAPILeagueIds"];
-    var predictLeagueIDs = configuration["SoccerAPI:predictLeagueIDs"];
-    //app settings
-    var folderPath = configuration["AppSettings:baseFolderPath"];
-    var matchFeaturesCSVFileName = configuration["AppSettings:matchFeaturesCSVFileName"];
-    var csvFilePath = configuration["AppSettings:csvFilePath"] + DateTime.Now.ToString("yyyyMMdd") + "_" + matchFeaturesCSVFileName;
-    var predictoinCSVFileName = configuration["AppSettings:predictionCSVFileName"];
-    //football api
-    var footballAPIUrl = configuration["FootballAPI:apiURL"];
-    var footballAPIKey = configuration["FootballAPI:key"];
+    var appConfig =  new AppConfig(configuration);
+    
 
     #endregion
 
     #region Training Model
-
-    //prepare data for training
-    var trainData = Convert.ToBoolean(configuration["AppSettings:trainData"]);
-    if (trainData)
-        await new PrepareData().PrepareDataForTraining(leagueIds, user, token, csvFilePath, folderPath, DateTime.Now.ToString("yyyyMMdd") + "_" + matchFeaturesCSVFileName);
+    
+    if (appConfig.AppSettingsConfig.TrainData)
+        await new PrepareData().PrepareDataForTraining(
+            appConfig.SoccerAPIConfig.SoccerAPILeagueIDs, 
+            appConfig.SoccerAPIConfig.User, 
+            appConfig.SoccerAPIConfig.Token, 
+            appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
     #endregion
 
     #region Predictions
 
     //make predictions
-    var predictData = Convert.ToBoolean(configuration["AppSettings:predictData"]);
-    if (predictData)
+    if (appConfig.AppSettingsConfig.TrainData)
     {        
         
-        var predictLeagueIDsArray = predictLeagueIDs.Split(new char[1] { ',' });
+        var predictLeagueIDsArray = appConfig.SoccerAPIConfig.PredictLeagueIDs.Split(new char[1] { ',' });
         List<MatchPredictionResult> predictionResults = new List<MatchPredictionResult>();
         foreach(var predictLeagueID in predictLeagueIDsArray)        
-            predictionResults.AddRange(await new FixtureData().GetFixturesPrediction(user, token, predictLeagueID, csvFilePath, folderPath));  
+            predictionResults.AddRange(await new FixtureData().GetFixturesPrediction(
+                appConfig.SoccerAPIConfig.User, 
+                appConfig.SoccerAPIConfig.Token, 
+                predictLeagueID, 
+                appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName));  
         
-        new CSVSerialization().SaveMatchPredictionsToCsv(predictionResults, folderPath + DateTime.Now.ToString("yyyyMMdd") + "_" + predictoinCSVFileName);
+        new CSVSerialization().SaveMatchPredictionsToCsv(predictionResults, 
+            appConfig.SoccerAPIConfig.BaseFolderPath + DateTime.Now.ToString("yyyyMMdd") + "_" + appConfig.AppSettingsConfig.PredictionCSVFileName);
     }
 
     #endregion
