@@ -64,31 +64,6 @@ try
 
     #region New Sources
 
-    //for new matches, Football API, get all leagues
-    //var client = new RestClient("https://v3.football.api-sports.io/leagues");
-    //var request = new RestRequest();
-    //request.AddHeader("x-rapidapi-key", footballAPIKey);
-    //request.AddHeader("x-rapidapi-host", footballAPIUrl);
-    //RestResponse response = client.Execute(request);
-    //var apiLeagueDetailResponses = JsonConvert.DeserializeObject<FootballAPILeaguesResponse>(response.Content);   
-    //var apiFootballLeagues = apiLeagueDetailResponses.Response.FindAll(x => x.League.Type == "League").ToList();
-
-    ////create list of exclusions (leagues that we are getting through Soccer API)
-    //var footballAPIMatchExclusions = new List<int>();
-    //var soccerApiExclusions = new Exclusions().GetSoccerApiLeaaguesByCountry();
-    //foreach(var soccerAPIExclusion in soccerApiExclusions)
-    //{
-    //    var matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x => 
-    //                                                                         x.League.Name.ToLower().Trim() == soccerAPIExclusion.league.ToLower().Trim() &&
-    //                                                                         x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());
-    //    if (matchedLeague == null)                    
-    //        matchedLeague = apiLeagueDetailResponses.Response.FirstOrDefault(x =>
-    //                                                                         x.League.Name.ToLower().Trim() == soccerAPIExclusion.footballAPIMappingName.ToLower().Trim() &&
-    //                                                                         x.Country.Name.ToLower().Trim() == soccerAPIExclusion.country.ToLower().Trim());        
-
-    //    if (matchedLeague != null)
-    //        footballAPIMatchExclusions.Add(matchedLeague.League.Id);
-    //}
 
     //get leagues by country
     //var client2 = new RestClient("https://v3.football.api-sports.io/leagues?code=FR");
@@ -119,17 +94,10 @@ try
     //RestResponse response4 = client4.Execute(request4);    
     //var fixtureResponse = JsonConvert.DeserializeObject<FootbalAPIFixtureResponse>(response4.Content);
     
-    //work flow will be like this, first call I am going to get all the leagues,
-    //I must create exclusion list of leagues that I already have,
-    //I will iterate through league's seasons by id and get fixtures for that season id,
-    //I am going to create list of matches by league by iterating through all league's seasons,
-    //and I am going to use that list to save it as MatchFeatures.csv file by using season id inside league folder
-    //and later I am going to concanate all csvs with SoccerApi csv and train the model at the end,
-    //for beginning I am going to create up to 90 csvs per day because of the free plan limitations (100 requests per day)
-    //so there is about 700+ leagues and I can get for free 3 seasons per league (2021,2022,2023) so it will take about 3.5 weeks to get all the data,
-    //but I will train model at the end of the day with newly aquired data,
-    //so I will need to create mechanism for csv concatenation after I create mechanism for Football API csv serialiazation as MatchFeature objects
-    //csv serialization must include yyyyMMdd info so I will work only with newest csv files like I created for model save/load
+    //to calculate match features for Football API, to make union of match features from Soccer API
+    //and Football API and to save result of that union to the root folder, and use that saved union
+    //for training models which will be saved also in root folder, and those models will be used for predictions
+    //which will be saved also in root folder
 
     #endregion
 }

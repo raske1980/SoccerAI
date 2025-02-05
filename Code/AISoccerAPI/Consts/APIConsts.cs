@@ -7,13 +7,14 @@ using System.Threading.Tasks;
 
 namespace AISoccerAPI.Consts
 {
-    public class SoccerAPIConsts
+    public class APIConsts
     {
         public const int Win = 3;
         public const int Draw = 1;
         public const int Lost = 0;
         public const double WeightFactor = 0.2;
         public const int FormMomentumMax = 5;
+        public const int MaxFootballAPIRequests = 30;        
     }
 
     public class MatchCategory

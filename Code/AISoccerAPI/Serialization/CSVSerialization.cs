@@ -1,10 +1,12 @@
-﻿using AISoccerAPI.Calculation;
+﻿using AISoccerAPI.API.SoccerAPI.SoccerLeagueDetail;
+using AISoccerAPI.Calculation;
 using AISoccerAPI.Data;
 using CsvHelper;
 using CsvHelper.Configuration;
 using System;
 using System.Collections.Generic;
 using System.Formats.Asn1;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -23,6 +25,20 @@ namespace AISoccerAPI.Serialization
             {
                 csv.WriteRecords(features);
             }
+        }
+
+        public List<MatchFeatures> LoadFeaturesFromCSV(string csvFilePath)
+        {
+            if (File.Exists(csvFilePath))
+            {
+                using (var reader = new StreamReader(csvFilePath))
+                using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+                {
+                    return csv.GetRecords<MatchFeatures>().ToList();                    
+                }
+            }
+            else
+                return new List<MatchFeatures>();
         }
 
         public void SaveMatchPredictionsToCsv(List<MatchPredictionResult> predictions, string filePath)

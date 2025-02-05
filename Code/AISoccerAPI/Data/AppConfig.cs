@@ -26,12 +26,14 @@ namespace AISoccerAPI.Data
         public string BaseFolderPath { get; set; }
         public string APIUrl { get; set; }
         public string Key { get; set; }
+        public string ObtaindLeagueIDsFileName { get; set; }
 
         public FootballAPIConfig(IConfiguration configuration)
         {
             this.APIUrl = configuration["FootballAPI:apiURL"];
             this.Key = configuration["FootballAPI:key"];
             this.BaseFolderPath = configuration["FootballAPI:baseFolderPath"];
+            this.ObtaindLeagueIDsFileName = configuration["FootballAPI:obtaindLeagueIDsFileName"];
         }
     }
 

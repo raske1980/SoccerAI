@@ -128,7 +128,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
             var lastMatchesOfTeam = matches.OrderByDescending(x=>x.Date).Where(x =>
                                                           x.HomeTeam == team ||
                                                           x.AwayTeam == team).
-                                                          Skip(0).Take(SoccerAPIConsts.FormMomentumMax).ToList();            
+                                                          Skip(0).Take(APIConsts.FormMomentumMax).ToList();            
 
             float sumOfPoints = 0;
             float sumOfWeights = 0;
@@ -143,15 +143,15 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                 if (isHomeTeam)
                     sumOfPoints += (float)weight *
                         ((lastMatchesOfTeam[i].HomeGoals > lastMatchesOfTeam[i].AwayGoals) ?
-                        SoccerAPIConsts.Win :
+                        APIConsts.Win :
                         (lastMatchesOfTeam[i].HomeGoals == lastMatchesOfTeam[i].AwayGoals) ?
-                        SoccerAPIConsts.Draw : SoccerAPIConsts.Lost);
+                        APIConsts.Draw : APIConsts.Lost);
                 else
                     sumOfPoints += (float)weight *
                         (lastMatchesOfTeam[i].AwayGoals > lastMatchesOfTeam[i].HomeGoals ?
-                        SoccerAPIConsts.Win :
+                        APIConsts.Win :
                         (lastMatchesOfTeam[i].AwayGoals == lastMatchesOfTeam[i].HomeGoals) ?
-                        SoccerAPIConsts.Draw : SoccerAPIConsts.Lost);
+                        APIConsts.Draw : APIConsts.Lost);
             }
 
             float formMomentum = sumOfPoints / sumOfWeights;

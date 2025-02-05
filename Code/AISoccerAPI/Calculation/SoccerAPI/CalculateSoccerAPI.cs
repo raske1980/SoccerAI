@@ -134,7 +134,7 @@ namespace AISoccerAPI.Calculation.SoccerAPI
             var lastMatchesOfTeam = matches.Where(x =>
                                                           x.Teams.Home.Id == teamId ||
                                                           x.Teams.Away.Id == teamId).
-                                                          Skip(0).Take(SoccerAPIConsts.FormMomentumMax).ToList();
+                                                          Skip(0).Take(APIConsts.FormMomentumMax).ToList();
 
             lastMatchesOfTeam = lastMatchesOfTeam.OrderBy(x=>x.Time.Timestamp).ToList();
 
@@ -153,15 +153,15 @@ namespace AISoccerAPI.Calculation.SoccerAPI
                 if (isHomeTeam)
                     sumOfPoints += weight *
                         (parseHomeScore > parseAwayScore ?
-                        SoccerAPIConsts.Win :
+                        APIConsts.Win :
                         (parseHomeScore == parseAwayScore ?
-                        SoccerAPIConsts.Draw : SoccerAPIConsts.Lost));                    
+                        APIConsts.Draw : APIConsts.Lost));                    
                 else                
                     sumOfPoints += weight *
                         (parseAwayScore > parseHomeScore ? 
-                        SoccerAPIConsts.Win :
+                        APIConsts.Win :
                         (parseAwayScore == parseHomeScore ? 
-                        SoccerAPIConsts.Draw : SoccerAPIConsts.Lost));                
+                        APIConsts.Draw : APIConsts.Lost));                
             }
 
             double formMomentum = sumOfPoints / sumOfWeights;
@@ -174,8 +174,8 @@ namespace AISoccerAPI.Calculation.SoccerAPI
         {
             List<double> toReturn = new List<double>();
 
-            double weightStep = 1d / (double)SoccerAPIConsts.FormMomentumMax;
-            for (int i = 0; i <= SoccerAPIConsts.FormMomentumMax; i++)
+            double weightStep = 1d / (double)APIConsts.FormMomentumMax;
+            for (int i = 0; i <= APIConsts.FormMomentumMax; i++)
             {
                 if (i == 0) continue;
                 toReturn.Add(Math.Round(weightStep * i,1));
