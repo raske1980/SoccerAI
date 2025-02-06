@@ -13,23 +13,19 @@ namespace AISoccerAPI.Data
 {
     public class PrepareData
     {
-        public async Task PrepareDataForTraining(string leagueIds,
-            string user,
-            string token,
-            string csvFilePath)
+        public async Task PrepareDataForTraining(AppConfig appConfig)
         {
             //call api, transform data, save to csv
-            var leagudeIdsArr = leagueIds.Split(new char[1] { ',' });
+            var leagudeIdsArr = appConfig.SoccerAPIConfig.SoccerAPILeagueIDs.Split(new char[1] { ',' });
             List<MatchFeatures> matchFeatures = new List<MatchFeatures>();
             foreach (var leagueId in leagudeIdsArr)
             {
-                var leagueDetails = await new GetLeagueDetail().GetSoccerLeagueAsync(user, token, leagueId);
-                matchFeatures.AddRange(await new CalculateSoccerAPI().CalculateMatchFeatures(leagueDetails, user, token));
+                var leagueDetails = await new GetLeagueDetail().GetSoccerLeagueAsync(appConfig.SoccerAPIConfig.User, appConfig.SoccerAPIConfig.Token, leagueId);
+                matchFeatures.AddRange(await new CalculateSoccerAPI().CalculateMatchFeatures(leagueDetails, appConfig.SoccerAPIConfig.User, appConfig.SoccerAPIConfig.Token));
             }
 
-            new CSVSerialization().SaveFeaturesToCsv(matchFeatures, csvFilePath);
-
-            new TrainModel().StartTrainModel(csvFilePath);
+            new CSVSerialization().SaveFeaturesToCsv(matchFeatures,
+                appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);            
         }
     }
 }

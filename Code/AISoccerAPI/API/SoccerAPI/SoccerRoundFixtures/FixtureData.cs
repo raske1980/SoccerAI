@@ -22,29 +22,35 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 {
     public class FixtureData
     {
-        public async Task<List<MatchPredictionResult>> GetFixturesPrediction(string user, 
-            string token, 
-            string leaguId,
-            string csvModelPath)
+        public async Task<List<MatchPredictionResult>> GetFixturesPrediction(AppConfig appConfig, string leagueId)
         {
             //get fixtures from the API
-            var soccerLeague = await new GetLeagueDetail().GetSoccerLeagueAsync(user,token, leaguId);
+            var soccerLeague = await new GetLeagueDetail().GetSoccerLeagueAsync(appConfig.SoccerAPIConfig.User,
+                appConfig.SoccerAPIConfig.Token, 
+                leagueId);
+
             var currentRoundId = soccerLeague.Data.CurrentRoundId;
             var currentSeasonId = soccerLeague.Data.CurrentSeasonId;
-            var seasonMatchDetails = await new GetSeasonMatchDetails().GetSeasonMatchDetailsAsync(user, token, soccerLeague.Data.CurrentSeasonId);
-            var seasonStandingsDetails = await new SoccerLeagueStanding().GetStandingAsync(user, token, currentSeasonId);
+
+            var seasonMatchDetails = await new GetSeasonMatchDetails().GetSeasonMatchDetailsAsync(appConfig.SoccerAPIConfig.User, 
+                appConfig.SoccerAPIConfig.Token, 
+                soccerLeague.Data.CurrentSeasonId);
+            var seasonStandingsDetails = await new SoccerLeagueStanding().GetStandingAsync(appConfig.SoccerAPIConfig.User, 
+                appConfig.SoccerAPIConfig.Token, 
+                currentSeasonId);
             var currentRoundFixtures = seasonMatchDetails.Data.FindAll(x => x.RoundId == currentRoundId).ToList();
 
             //load past data from the excel
             var pastMatches = new List<MatchFeatures>();
-            using (var reader = new StreamReader(csvModelPath))
+            using (var reader = new StreamReader(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
             using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
             {
                 pastMatches = csv.GetRecords<MatchFeatures>().ToList();               
             }
 
             //load models
-            var models = new SaveLoadModel().LoadModels(new FileInfo(csvModelPath).Directory.FullName);    
+            var models = new SaveLoadModel().LoadModels(
+                new FileInfo(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName).Directory.FullName);    
             
             List<MatchPredictionResult> predictions = new List<MatchPredictionResult>();
 
@@ -73,12 +79,12 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 
                 var newMatch = new MatchFeatures
                 {
-                    GoalDifference = goalDifference,      // Example of goal difference
-                    WinRateHome = homeWins,          // Example of home team win rate
-                    WinRateAway = awayWins,          // Example of away team win rate
-                    FormMomentumHome = homeMomentum,    // Example of home team's form momentum
-                    FormMomentumAway = awayMomentum,    // Example of away team's form momentum
-                    LeagueRankDifference = homePosition != null && awayPosition != null ? (float)homePosition - (float)awayPosition : 0f   // Example of league rank difference
+                    GoalDifference = goalDifference,      
+                    WinRateHome = homeWins,          
+                    WinRateAway = awayWins,          
+                    FormMomentumHome = homeMomentum,    
+                    FormMomentumAway = awayMomentum,    
+                    LeagueRankDifference = homePosition != null && awayPosition != null ? (float)homePosition - (float)awayPosition : 0f
                 };
 
                 // Prediction engine for HomeGoals
@@ -132,7 +138,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 
             float sumOfPoints = 0;
             float sumOfWeights = 0;
-            var listOfWeights = new CalculateSoccerAPI().GetWeights();
+            var listOfWeights = CalculateSoccerAPI.GetWeights();
             for (var i = 0; i < lastMatchesOfTeam.Count; i++)
             {
                 float weight = (float)listOfWeights[i];

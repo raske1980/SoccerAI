@@ -170,7 +170,7 @@ namespace AISoccerAPI.Calculation.SoccerAPI
 
         #region Helper Methods
 
-        public List<double> GetWeights()
+        public static List<double> GetWeights()
         {
             List<double> toReturn = new List<double>();
 

@@ -33,11 +33,20 @@ try
     #region Training Model
     
     if (appConfig.AppSettingsConfig.TrainData)
-        await new PrepareData().PrepareDataForTraining(
-            appConfig.SoccerAPIConfig.SoccerAPILeagueIDs, 
-            appConfig.SoccerAPIConfig.User, 
-            appConfig.SoccerAPIConfig.Token, 
-            appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+    {
+        //Soccer API
+        await new PrepareData().PrepareDataForTraining(appConfig);
+
+        //Football API
+        await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);
+
+        //merge features from different sources
+        new MergeMultipleSources().MergeFeatures(appConfig);
+
+        //train data based on data from all sources
+        new TrainModel().StartTrainModel(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+    }
+        
 
     #endregion
 
@@ -50,11 +59,7 @@ try
         var predictLeagueIDsArray = appConfig.SoccerAPIConfig.PredictLeagueIDs.Split(new char[1] { ',' });
         List<MatchPredictionResult> predictionResults = new List<MatchPredictionResult>();
         foreach(var predictLeagueID in predictLeagueIDsArray)        
-            predictionResults.AddRange(await new FixtureData().GetFixturesPrediction(
-                appConfig.SoccerAPIConfig.User, 
-                appConfig.SoccerAPIConfig.Token, 
-                predictLeagueID, 
-                appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName));  
+            predictionResults.AddRange(await new FixtureData().GetFixturesPrediction(appConfig, predictLeagueID));  
         
         new CSVSerialization().SaveMatchPredictionsToCsv(predictionResults, 
             appConfig.SoccerAPIConfig.BaseFolderPath + DateTime.Now.ToString("yyyyMMdd") + "_" + appConfig.AppSettingsConfig.PredictionCSVFileName);

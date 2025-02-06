@@ -22,16 +22,16 @@ public class APIFixturePaging
 public class Periods
 {
     [JsonProperty("first")]
-    public long First { get; set; }
+    public long? First { get; set; }
 
     [JsonProperty("second")]
-    public long Second { get; set; }
+    public long? Second { get; set; }
 }
 
 public class Venue
 {
     [JsonProperty("id")]
-    public int Id { get; set; }
+    public int? Id { get; set; }
 
     [JsonProperty("name")]
     public string Name { get; set; }
@@ -49,7 +49,7 @@ public class Status
     public string Short { get; set; }
 
     [JsonProperty("elapsed")]
-    public int Elapsed { get; set; }
+    public int? Elapsed { get; set; }
 
     [JsonProperty("extra")]
     public object Extra { get; set; }
@@ -151,28 +151,28 @@ public class Teams
 public class Goals
 {
     [JsonProperty("home")]
-    public int Home { get; set; }
+    public int? Home { get; set; }
 
     [JsonProperty("away")]
-    public int Away { get; set; }
+    public int? Away { get; set; }
 }
 
 public class Halftime
 {
     [JsonProperty("home")]
-    public int Home { get; set; }
+    public int? Home { get; set; }
 
     [JsonProperty("away")]
-    public int Away { get; set; }
+    public int? Away { get; set; }
 }
 
 public class Fulltime
 {
     [JsonProperty("home")]
-    public int Home { get; set; }
+    public int? Home { get; set; }
 
     [JsonProperty("away")]
-    public int Away { get; set; }
+    public int? Away { get; set; }
 }
 
 public class Extratime
