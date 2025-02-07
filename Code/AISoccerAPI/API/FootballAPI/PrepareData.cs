@@ -78,7 +78,7 @@ namespace AISoccerAPI.API.FootballAPI
                     RestResponse responseBySeason = clientBySeason.Execute(requestBySeason);                    
                     var fixtureResponse = JsonConvert.DeserializeObject<FootbalAPIFixtureResponse>(responseBySeason.Content);
                     fixturesBySeason.Add(year, fixtureResponse);
-                    Thread.Sleep(10000);//added because of football api free plan limitation
+                    Thread.Sleep(6100);//added because of football api free plan limitation
                 }
 
                 foreach (var keyValuePair in fixturesBySeason)

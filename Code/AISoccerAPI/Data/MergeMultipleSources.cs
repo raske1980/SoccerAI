@@ -19,7 +19,7 @@ namespace AISoccerAPI.Data
             DirectoryInfo di = new DirectoryInfo(appConfig.SoccerAPIConfig.BaseFolderPath);
             List<FileInfo> files = new List<FileInfo>();
             foreach (var file in di.GetFiles())
-                if (file.Name.EndsWith("_MatchFeatures")) files.Add(file);
+                if (file.Name.EndsWith("_MatchFeatures.csv")) files.Add(file);
 
             List<DateTime> dates = new List<DateTime>();
             foreach (var file in files)
