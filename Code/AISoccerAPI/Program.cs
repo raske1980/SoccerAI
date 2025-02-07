@@ -62,7 +62,7 @@ try
             predictionResults.AddRange(await new FixtureData().GetFixturesPrediction(appConfig, predictLeagueID));  
         
         new CSVSerialization().SaveMatchPredictionsToCsv(predictionResults, 
-            appConfig.SoccerAPIConfig.BaseFolderPath + DateTime.Now.ToString("yyyyMMdd") + "_" + appConfig.AppSettingsConfig.PredictionCSVFileName);
+            appConfig.AppSettingsConfig.BaseFolderPath + DateTime.Now.ToString("yyyyMMdd") + "_" + appConfig.AppSettingsConfig.PredictionCSVFileName);
     }
 
     #endregion
