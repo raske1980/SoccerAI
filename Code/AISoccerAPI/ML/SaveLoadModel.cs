@@ -20,7 +20,7 @@ namespace AISoccerAPI.ML
 
             //delete model files if they exist
             foreach (var filePath in Directory.GetFiles(path)) {
-                if (filePath.Contains(DateTime.Now.ToString("yyyyMMdd") + "_" + "Home"))
+                if (filePath.EndsWith("Home.zip"))
                 {
                     File.Delete(filePath);
                     break;
@@ -28,7 +28,7 @@ namespace AISoccerAPI.ML
             }
             foreach (var filePath in Directory.GetFiles(path))
             {
-                if (filePath.Contains(DateTime.Now.ToString("yyyyMMdd") + "_" + "Away"))
+                if (filePath.Contains("Away.zip"))
                 {
                     File.Delete(filePath);
                     break;
@@ -36,8 +36,8 @@ namespace AISoccerAPI.ML
             }
 
             //save new models
-            mlContext.Model.Save(homeModel, trainingData.Schema, path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "_" + "Home.zip");
-            mlContext.Model.Save(awayModel, trainingData.Schema, path + "\\" + DateTime.Now.ToString("yyyyMMdd") + "_" + "Away.zip");
+            mlContext.Model.Save(homeModel, trainingData.Schema, path + "\\" + "Home.zip");
+            mlContext.Model.Save(awayModel, trainingData.Schema, path + "\\" + "Away.zip");
         }
 
         public (ITransformer loadedHomeModel, ITransformer loadedAwayModel) LoadModels(string path)
@@ -45,50 +45,28 @@ namespace AISoccerAPI.ML
             var mlContext = new MLContext();
 
             //load latest models (Home and Away)
-            var allHomeModels = Directory.GetFiles(path).ToList().Where(x=> x.Contains("_Home")).Select(x => x).ToList();
-            var allAwayModels = Directory.GetFiles(path).ToList().Where(x => x.Contains("_Away")).Select(x => x).ToList();
+            var allHomeModels = Directory.GetFiles(path).ToList().Where(x=> x.EndsWith("Home.zip")).Select(x => x).ToList();
+            var allAwayModels = Directory.GetFiles(path).ToList().Where(x => x.Contains("Away.zip")).Select(x => x).ToList();
 
             string latestHomeModel = string.Empty;
             string latestAwayModel = string.Empty;
-
-            List<DateTime> homeTimeList = new List<DateTime>();
+            
             foreach(var homeModelPath in allHomeModels)
             {
                 var fileInfo = new FileInfo(homeModelPath);
                 string fileName = fileInfo.Name;
-                var fileNameArray = fileName.Split(new char[1] { '_' });
-                if(fileNameArray.Length > 1)
-                {
-                    int year = Int32.Parse(fileNameArray[0].Substring(0, 4));
-                    int month = Int32.Parse(fileNameArray[0].Substring(4, 2));
-                    int day = Int32.Parse(fileNameArray[0].Substring(6, 2));
-                    DateTime homeDateTime = new DateTime(year, month, day); 
-                    homeTimeList.Add(homeDateTime);
-                }                                    
+                                                    
             }
 
-            List<DateTime> awayTimeList = new List<DateTime>();
             foreach (var awayModelPath in allAwayModels)
             {
                 var fileInfo = new FileInfo(awayModelPath);
                 string fileName = fileInfo.Name;
-                var fileNameArray = fileName.Split(new char[1] { '_' });
-                if (fileNameArray.Length > 1)
-                {
-                    int year = Int32.Parse(fileNameArray[0].Substring(0, 4));
-                    int month = Int32.Parse(fileNameArray[0].Substring(4, 2));
-                    int day = Int32.Parse(fileNameArray[0].Substring(6, 2));
-                    DateTime homeDateTime = new DateTime(year, month, day);
-                    awayTimeList.Add(homeDateTime);
-                }
-            }
-            //sort models to take latest
-            homeTimeList.Sort();
-            awayTimeList.Sort();
+            }            
 
             //load models
-            ITransformer loadedHomeModel = mlContext.Model.Load(path + "\\" + homeTimeList[homeTimeList.Count - 1].ToString("yyyyMMdd") + "_" + "Home.zip", out var homeModelInputSchema);
-            ITransformer loadedAwayModel = mlContext.Model.Load(path + "\\" + awayTimeList[awayTimeList.Count - 1].ToString("yyyyMMdd") + "_" + "Away.zip", out var awayModelInputSchema);
+            ITransformer loadedHomeModel = mlContext.Model.Load(path + "\\" + "Home.zip", out var homeModelInputSchema);
+            ITransformer loadedAwayModel = mlContext.Model.Load(path + "\\" + "Away.zip", out var awayModelInputSchema);
             return (loadedHomeModel, loadedAwayModel);
         }
     }

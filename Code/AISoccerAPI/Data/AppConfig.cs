@@ -66,7 +66,7 @@ namespace AISoccerAPI.Data
         public AppSettingsConfig(IConfiguration configuration)
         {
             this.BaseFolderPath = configuration["AppSettings:baseFolderPath"];
-            this.MatchFeaturesCSVFileName = DateTime.Now.ToString("yyyyMMdd") + "_" + configuration["AppSettings:matchFeaturesCSVFileName"];           
+            this.MatchFeaturesCSVFileName = configuration["AppSettings:matchFeaturesCSVFileName"];           
             this.PredictionCSVFileName = configuration["AppSettings:predictionCSVFileName"];
             this.TrainData = Convert.ToBoolean(configuration["AppSettings:trainData"]);
             this.PredictData = Convert.ToBoolean(configuration["AppSettings:predictData"]);
