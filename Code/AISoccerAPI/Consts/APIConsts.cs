@@ -25,6 +25,12 @@ namespace AISoccerAPI.Consts
 
     public class Exclusions
     {
+
+        public List<string> GetContinents()
+        {
+            return new List<string> { "Asia","Africa","North America","South America","Antartica","Europe","Australia", "International" };
+        }
+
         public List<(string league, string country, string footballAPIMappingName)> GetSoccerApiLeaaguesByCountry()
         {
             return new List<(string league, string country, string footballAPIMappingName)> { 

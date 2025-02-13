@@ -11,6 +11,8 @@ using AISoccerAPI.Data;
 using RestSharp;
 using Newtonsoft.Json;
 using AISoccerAPI.Consts;
+using AISoccerAPI.JSON.OpenData;
+
 
 try
 {
@@ -45,8 +47,7 @@ try
 
         //train data based on data from all sources
         new TrainModel().StartTrainModel(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
-    }
-        
+    }        
 
     #endregion
 
@@ -69,7 +70,7 @@ try
 
     #region New Sources
 
-
+    new OpenDataExtract().OpenDataExtractPrepareData(appConfig);
     
     #endregion
 }

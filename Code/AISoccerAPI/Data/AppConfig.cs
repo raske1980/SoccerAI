@@ -13,11 +13,15 @@ namespace AISoccerAPI.Data
         public SoccerAPIConfig SoccerAPIConfig { get; set; }
 
         public FootballAPIConfig FootballAPIConfig { get; set; }
+
+        public OpenDataConfig OpenDataConfig { get; set; }
+
         public AppConfig(IConfiguration configuration) 
         {
             this.AppSettingsConfig = new AppSettingsConfig(configuration);
             this.SoccerAPIConfig = new SoccerAPIConfig(configuration);
             this.FootballAPIConfig = new FootballAPIConfig(configuration);
+            this.OpenDataConfig = new OpenDataConfig(configuration);
         }
     }
 
@@ -52,6 +56,16 @@ namespace AISoccerAPI.Data
             this.SoccerAPILeagueIDs = configuration["SoccerAPI:soccerAPILeagueIds"];
             this.PredictLeagueIDs = configuration["SoccerAPI:predictLeagueIDs"];
             this.BaseFolderPath = configuration["SoccerAPI:baseFolderPath"];            
+        }
+    }
+
+    public class OpenDataConfig
+    {
+        public string BaseFolderPath { get; set; }
+
+        public OpenDataConfig(IConfiguration configuration)
+        {
+            this.BaseFolderPath = configuration["OpenData:baseFolderPath"];
         }
     }
 
