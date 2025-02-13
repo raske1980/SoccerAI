@@ -70,7 +70,7 @@ try
 
     #region New Sources
 
-    new OpenDataExtract().OpenDataExtractPrepareData(appConfig);
+    //new OpenDataExtract().OpenDataExtractPrepareData(appConfig);
     
     #endregion
 }
