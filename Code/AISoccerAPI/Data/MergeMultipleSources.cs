@@ -13,41 +13,75 @@ namespace AISoccerAPI.Data
     {
         public void MergeFeatures(AppConfig appConfig)
         {
-            var footballAPIFeatures = new CSVSerialization().
-                LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            MergeAPIFeatures(appConfig);
 
-            DirectoryInfo di = new DirectoryInfo(appConfig.SoccerAPIConfig.BaseFolderPath);
-            List<FileInfo> files = new List<FileInfo>();
-            foreach (var file in di.GetFiles())
-                if (file.Name.EndsWith("_MatchFeatures.csv")) files.Add(file);
+            MergeJSONFeatures(appConfig);
 
-            List<DateTime> dates = new List<DateTime>();
-            foreach (var file in files)
-            {
-                var fileName = file.Name;
-                var fileNameArr = fileName.Split(new char[1] { '_' });
-                int year = Int32.Parse(fileNameArr[0].Substring(0,4));
-                int month = Int32.Parse(fileNameArr[0].Substring(4, 2));
-                int day = Int32.Parse(fileNameArr[0].Substring(6, 2));
-                DateTime fileDateTime = new DateTime(year, month, day);
-                dates.Add(fileDateTime);
-            }
+            MergeAllFeatures(appConfig);
+        }
 
-            dates.Sort();
-            string soccerAPICSVFilePath = string.Empty;
-            if (dates.Count > 0)
-            {
-                var file = files.Find(x => x.Name.StartsWith(dates[dates.Count - 1].ToString("yyyyMMdd")));
-                if(file != null)
-                    soccerAPICSVFilePath = file.FullName;
-            }
+        public void MergeAllFeatures(AppConfig appConfig)
+        {
+            //load api fetures
+            var apiFeatures = new List<MatchFeatures>();
+            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                apiFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
-            List<MatchFeatures> soccerAPIFeatures = new List<MatchFeatures>();
-            if(!string.IsNullOrEmpty(soccerAPICSVFilePath))
-                soccerAPIFeatures = new CSVSerialization().LoadFeaturesFromCSV(soccerAPICSVFilePath);
+            //load json features
+            var jsonFeatures = new List<MatchFeatures>();
+            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                jsonFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
+            //union of all features and write them down to main folder
+            apiFeatures.AddRange(jsonFeatures);
+            new CSVSerialization().SaveFeaturesToCsv(apiFeatures, appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+        }
+
+        public void MergeAPIFeatures(AppConfig appConfig)
+        {
+            //load first football api features
+            var footballAPIFeatures = new List<MatchFeatures>();
+            if (File.Exists(appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                footballAPIFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            //load second soccer api features
+            var soccerAPIFeatures = new List<MatchFeatures>();
+            if (File.Exists(appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                soccerAPIFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            //make union and write them to the API folder
             footballAPIFeatures.AddRange(soccerAPIFeatures);
-            new CSVSerialization().SaveFeaturesToCsv(footballAPIFeatures, appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                File.Delete(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            new CSVSerialization().SaveFeaturesToCsv(footballAPIFeatures, appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+        }
+
+        public void MergeJSONFeatures(AppConfig appConfig)
+        {
+            //load first open data
+            var openDataFeatures = new List<MatchFeatures>();
+            if(File.Exists(appConfig.OpenDataConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                openDataFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            //load second footbal json
+            var footbalJSONFeatures = new List<MatchFeatures>();
+            if(File.Exists(appConfig.FootballJSONConfig + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))            
+                footbalJSONFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            //make union and write them to the JSON folder
+            openDataFeatures.AddRange(footbalJSONFeatures);
+            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                File.Delete(appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            new CSVSerialization().SaveFeaturesToCsv(openDataFeatures, 
+                appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
         }
     }
 }

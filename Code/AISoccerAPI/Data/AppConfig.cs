@@ -16,12 +16,15 @@ namespace AISoccerAPI.Data
 
         public OpenDataConfig OpenDataConfig { get; set; }
 
+        public FootballJSONConfig FootballJSONConfig { get; set; }
+
         public AppConfig(IConfiguration configuration) 
         {
             this.AppSettingsConfig = new AppSettingsConfig(configuration);
             this.SoccerAPIConfig = new SoccerAPIConfig(configuration);
             this.FootballAPIConfig = new FootballAPIConfig(configuration);
             this.OpenDataConfig = new OpenDataConfig(configuration);
+            this.FootballJSONConfig = new FootballJSONConfig(configuration);
         }
     }
 
@@ -61,11 +64,25 @@ namespace AISoccerAPI.Data
 
     public class OpenDataConfig
     {
+        public string BaseDataFolderPath { get; set; }
         public string BaseFolderPath { get; set; }
 
         public OpenDataConfig(IConfiguration configuration)
         {
+            this.BaseDataFolderPath = configuration["OpenData:baseDataFolderPath"];
             this.BaseFolderPath = configuration["OpenData:baseFolderPath"];
+        }
+    }
+
+    public class FootballJSONConfig
+    {
+        public string BaseDataFolderPath { get; set; }
+        public string BaseFolderPath { get; set; }
+
+        public FootballJSONConfig(IConfiguration configuration)
+        {
+            this.BaseDataFolderPath = configuration["FootballJSON:baseDataFolderPath"];
+            this.BaseFolderPath = configuration["FootballJSON:baseFolderPath"];
         }
     }
 

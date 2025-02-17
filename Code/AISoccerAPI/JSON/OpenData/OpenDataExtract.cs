@@ -29,9 +29,9 @@ namespace AISoccerAPI.JSON.OpenData
         {
             List<Competition> toReturn = new List<Competition>();
 
-            if (Directory.Exists(appConfig.OpenDataConfig.BaseFolderPath))
+            if (Directory.Exists(appConfig.OpenDataConfig.BaseDataFolderPath))
             {
-                string filePath = appConfig.OpenDataConfig.BaseFolderPath + "competitions.json";
+                string filePath = appConfig.OpenDataConfig.BaseDataFolderPath + "competitions.json";
 
                 if (File.Exists(filePath))
                 {
@@ -94,7 +94,7 @@ namespace AISoccerAPI.JSON.OpenData
                                 Convert.ToInt32(competition.SeasonName) < 2021) &&
                                 !IsCupCompetition(competition.CompetitionName))
                         {
-                            var matchesFolder = appConfig.OpenDataConfig.BaseFolderPath + "matches\\";
+                            var matchesFolder = appConfig.OpenDataConfig.BaseDataFolderPath + "matches\\";
                             if (Directory.Exists(matchesFolder))
                             {
                                 var jsonFilePath = matchesFolder + competition.CompetitionId + "\\" + competition.SeasonId + ".json";
