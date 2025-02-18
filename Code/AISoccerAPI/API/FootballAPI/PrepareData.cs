@@ -105,12 +105,15 @@ namespace AISoccerAPI.API.FootballAPI
                         var goalDiff = CalculateGoalDifference(seasonResponse, fixture);
                         double formMomentumHome = CalculateFormMomentum(seasonResponse, fixture.Teams.Home.Id);
                         double formMomentumAway = CalculateFormMomentum(seasonResponse, fixture.Teams.Away.Id);
-                        
+
+                        var matchDate = new DateTime(fixture.Fixture.Timestamp);
+                        if (matchDate.Day == 1 && matchDate.Month == 1 && matchDate.Year == 1)
+                            DateTime.TryParse(fixture.Fixture.Date, out matchDate);
                         matchFeatures.Add(new MatchFeatures {
                             MatchId = fixture.Fixture.Id,
                             HomeTeam = fixture.Teams.Home.Name,
                             AwayTeam = fixture.Teams.Away.Name,
-                            Date = new DateTime(fixture.Fixture.Timestamp).ToString("dd/MM/yyyy"),
+                            Date = matchDate.ToString("dd/MM/yyyy"),
                             GoalDifference = goalDiff.homePastAvg - goalDiff.awayPastAvg,
                             WinRateAway = winRate.winRateAway,
                             WinRateHome = winRate.winRateHome,
