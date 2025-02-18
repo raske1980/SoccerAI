@@ -24,15 +24,15 @@ namespace AISoccerAPI.Data
         {
             //load api fetures
             var apiFeatures = new List<MatchFeatures>();
-            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+            if (File.Exists(new DirectoryInfo(appConfig.FootballAPIConfig.BaseFolderPath).Parent.FullName + "\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
                 apiFeatures = new CSVSerialization().
-                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+                    LoadFeaturesFromCSV(new DirectoryInfo(appConfig.FootballAPIConfig.BaseFolderPath).Parent.FullName + "\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
             //load json features
             var jsonFeatures = new List<MatchFeatures>();
-            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+            if (File.Exists(new DirectoryInfo(appConfig.FootballAPIConfig.BaseFolderPath).Parent.Parent.FullName + "\\JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
                 jsonFeatures = new CSVSerialization().
-                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+                    LoadFeaturesFromCSV(new DirectoryInfo(appConfig.FootballAPIConfig.BaseFolderPath).Parent.Parent.FullName + "\\JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
             //union of all features and write them down to main folder
             apiFeatures.AddRange(jsonFeatures);

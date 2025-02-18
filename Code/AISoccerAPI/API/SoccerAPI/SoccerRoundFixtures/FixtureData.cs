@@ -37,8 +37,11 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                 soccerLeague.Data.CurrentSeasonId);
             var seasonStandingsDetails = await new SoccerLeagueStanding().GetStandingAsync(appConfig.SoccerAPIConfig.User, 
                 appConfig.SoccerAPIConfig.Token, 
-                currentSeasonId);
-            var currentRoundFixtures = seasonMatchDetails.Data.FindAll(x => x.RoundId == currentRoundId).ToList();
+                currentSeasonId);            
+            //get all games that are going to be played in next 7 days
+            var currentRoundFixtures = seasonMatchDetails.Data.FindAll(x => 
+                                                                            Convert.ToDateTime(x.Time.Datetime) > DateTime.UtcNow && 
+                                                                            Convert.ToDateTime(x.Time.Datetime) < DateTime.UtcNow.AddDays(7));
 
             //load past data from the excel
             var pastMatches = new List<MatchFeatures>();
