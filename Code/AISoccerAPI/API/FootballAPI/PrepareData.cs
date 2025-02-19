@@ -1,4 +1,5 @@
-﻿using AISoccerAPI.API.SoccerAPI.SoccerSeasonMathesDetail;
+﻿using AISoccerAPI.API.SoccerAPI.SoccerLeaguesDetail;
+using AISoccerAPI.API.SoccerAPI.SoccerSeasonMathesDetail;
 using AISoccerAPI.Calculation;
 using AISoccerAPI.Calculation.SoccerAPI;
 using AISoccerAPI.Consts;
@@ -20,6 +21,60 @@ namespace AISoccerAPI.API.FootballAPI
 {
     public class PrepareData
     {
+
+        public async Task GetAPIDataForDates(AppConfig appConfig)
+        {
+            //get leagues that we need to populate date, and load list of leagues that have fixed date
+            var obtainedLeagueIds = await GetObtainedLeagueWithoutDateIds(appConfig);
+            var leagueIdsWithoutDates = await GetLeagueWithoutDateIds(appConfig);
+
+            var existingMatchFeatures = new CSVSerialization().
+                LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            int numberOfLeagues = 0;
+            foreach(var leagueId in leagueIdsWithoutDates)
+            {
+                if (numberOfLeagues > APIConsts.MaxFootballAPIRequests) break;
+                if (obtainedLeagueIds.Contains(leagueId)) continue;
+                
+                Dictionary<int, FootbalAPIFixtureResponse> fixturesBySeason = new Dictionary<int, FootbalAPIFixtureResponse>();
+                for (int year = 2021; year <= 2023; year++)
+                {
+                    var clientBySeason = new RestClient($"https://v3.football.api-sports.io/fixtures?league={leagueId}&season={year}");
+                    var requestBySeason = new RestRequest();
+                    requestBySeason.AddHeader("x-rapidapi-key", appConfig.FootballAPIConfig.Key);
+                    requestBySeason.AddHeader("x-rapidapi-host", appConfig.FootballAPIConfig.APIUrl);
+                    RestResponse responseBySeason = clientBySeason.Execute(requestBySeason);
+                    var fixtureResponse = JsonConvert.DeserializeObject<FootbalAPIFixtureResponse>(responseBySeason.Content);
+                    fixturesBySeason.Add(year, fixtureResponse);
+                    Thread.Sleep(6100);
+                }
+
+                foreach (var keyValuePair in fixturesBySeason)
+                { 
+                    foreach(var fixture in keyValuePair.Value.Response)
+                    {
+                        var feature = existingMatchFeatures.FirstOrDefault(x => x.MatchId == fixture.Fixture.Id);
+                        if(feature != null)
+                        {
+                            var matchDate = new DateTime(fixture.Fixture.Timestamp);
+                            if (matchDate.Day == 1 && matchDate.Month == 1 && matchDate.Year == 1)
+                                DateTime.TryParse(fixture.Fixture.Date, out matchDate);
+                            feature.Date = matchDate.ToString("dd/MM/yyyy");
+                        }
+                    }
+                }
+
+                obtainedLeagueIds.Add(leagueId);
+                numberOfLeagues++;
+            }
+
+            new CSVSerialization().
+                SaveFeaturesToCsv(existingMatchFeatures, appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            await SaveObtainedLeagueWithoutDateIds(obtainedLeagueIds, appConfig);
+        }
+
         public async Task GetAPIData(AppConfig appConfig)
         {
 
@@ -278,9 +333,65 @@ namespace AISoccerAPI.API.FootballAPI
             return toReturn;
         }
 
+        private async Task<List<int>> GetObtainedLeagueWithoutDateIds(AppConfig appConfig)
+        {
+            var toReturn = new List<int>();
+
+            var filePath = appConfig.FootballAPIConfig.BaseFolderPath + "ObtainedLeagueWithoutDates.txt";
+            if (File.Exists(filePath))
+            {
+                var fileText = await File.ReadAllTextAsync(filePath);
+                if (string.IsNullOrEmpty(fileText.Trim())) return toReturn;
+                var obtainedLeagueIds = new List<string>(fileText.Split(new char[1] { ',' })).
+                    ConvertAll(x =>
+                    {
+                        int parsedLeagueId = 0;
+                        int.TryParse(x, out parsedLeagueId);
+                        return parsedLeagueId;
+                    });
+                toReturn = obtainedLeagueIds;
+            }
+
+            return toReturn;
+        }
+
+        private async Task<List<int>> GetLeagueWithoutDateIds(AppConfig appConfig)
+        {
+            var toReturn = new List<int>();
+
+            var filePath = appConfig.FootballAPIConfig.BaseFolderPath + "LeaguesWithoutDates.txt";
+            if (File.Exists(filePath))
+            {
+                var fileText = await File.ReadAllTextAsync(filePath);
+                var obtainedLeagueIds = new List<string>(fileText.Split(new char[1] { ',' })).
+                    ConvertAll(x =>
+                    {
+                        int parsedLeagueId = 0;
+                        int.TryParse(x, out parsedLeagueId);
+                        return parsedLeagueId;
+                    });
+                toReturn = obtainedLeagueIds;
+            }
+
+            return toReturn;
+        }
+
         private async Task SaveObtainedLeagueIds(List<int> obtainedLeagueIds, AppConfig appConfig)
         {
             var filePath = appConfig.FootballAPIConfig.BaseFolderPath + appConfig.FootballAPIConfig.ObtaindLeagueIDsFileName;
+            if (File.Exists(filePath))
+                File.Delete(filePath);
+
+            string textToSave = string.Empty;
+            obtainedLeagueIds.ForEach(x => textToSave += x.ToString() + ",");
+            textToSave = textToSave.Trim(new char[1] { ',' });
+
+            await File.WriteAllTextAsync(filePath, textToSave);
+        }
+
+        private async Task SaveObtainedLeagueWithoutDateIds(List<int> obtainedLeagueIds, AppConfig appConfig)
+        {
+            var filePath = appConfig.FootballAPIConfig.BaseFolderPath + "ObtainedLeagueWithoutDates.txt";
             if (File.Exists(filePath))
                 File.Delete(filePath);
 
