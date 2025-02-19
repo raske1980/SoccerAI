@@ -44,7 +44,7 @@ try
         //Football API
         //await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);
         await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIDataForDates(appConfig);
-
+         
         //merge features from different sources
         new MergeMultipleSources().MergeFeatures(appConfig);
 

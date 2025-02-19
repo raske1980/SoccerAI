@@ -15,6 +15,36 @@ namespace AISoccerAPI.JSON.FootballJSON.Data
         public string team1 { get; set; }
         public string team2 { get; set; }
         public Score score { get; set; }
+
+        public Match(Match match)
+        {
+            this.round = match.round;
+            this.date = match.date;
+            this.time = match.time;
+            this.team1 = match.team1;
+            this.team2 = match.team2;
+            this.score = match.score;
+        }
+
+        public Match(Match2 match)
+        {
+            this.date = match.date;
+            this.round = string.Empty;
+            this.score = match.score;
+            this.team1 = match.team1;
+            this.team2 = match.team2;
+            this.time = string.Empty;
+        }
+    }
+
+    public class MatchExt : Match
+    {
+        public string season { get; set; }
+        public MatchExt(string season, Match match) 
+            : base(match)
+        {
+            this.season = season;
+        }
     }
 
     public class RootFootballJSON

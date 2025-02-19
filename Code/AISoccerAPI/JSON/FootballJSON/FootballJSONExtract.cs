@@ -11,10 +11,10 @@ namespace AISoccerAPI.JSON.FootballJSON
 {
     public class FootballJSONExtract
     {
-        public Dictionary<string, List<(string competition, List<AISoccerAPI.JSON.FootballJSON.Data.Match> matches)>> PrepareData(AppConfig appConfig)
+        public Dictionary<string, List<(string competition, List<AISoccerAPI.JSON.FootballJSON.Data.MatchExt> matches)>> PrepareData(AppConfig appConfig)
         {
-            Dictionary<string, List<(string competition, List<AISoccerAPI.JSON.FootballJSON.Data.Match> matches)>> toReturn =
-                new Dictionary<string, List<(string competition, List<Data.Match> matches)>>();
+            Dictionary<string, List<(string competition, List<AISoccerAPI.JSON.FootballJSON.Data.MatchExt> matches)>> toReturn =
+                new Dictionary<string, List<(string competition, List<Data.MatchExt> matches)>>();
 
             var dataFolderPath = appConfig.FootballJSONConfig.BaseDataFolderPath;
             if (Directory.Exists(dataFolderPath))
@@ -39,6 +39,7 @@ namespace AISoccerAPI.JSON.FootballJSON
 
                         var json = File.ReadAllText(file);
 
+                        //first serialization
                         RootFootballJSON league = JsonConvert.DeserializeObject<RootFootballJSON>(json);
                         RootFootballJSON2 league2 = null;
                         //if json isnt what we expected we try with another deserialization
@@ -54,28 +55,25 @@ namespace AISoccerAPI.JSON.FootballJSON
                             foreach (var item in league2.rounds)
                                 tempList.AddRange(item.matches);
                             foreach (var item in tempList)
-                                matches.Add(new Match { 
-                                    date = item.date,
-                                    round = string.Empty,
-                                    score = item.score,
-                                    team1 = item.team1,
-                                    team2 = item.team2,
-                                    time = string.Empty
-                                });
+                                matches.Add(new Match(item));
                         }
+
+                        List<AISoccerAPI.JSON.FootballJSON.Data.MatchExt> matchList = new List<MatchExt>();
+                        foreach (var match in matches)
+                            matchList.Add(new MatchExt(league.name, match));
                                                     
                         if(toReturn.ContainsKey(country))
                         {
                             if (toReturn[country].FindAll(x => x.competition == fi.Name.Split(new char[1] { '.' })[1]).Count == 0)
-                                toReturn[country].Add((fi.Name.Split(new char[1] { '.' })[1], matches));
+                                toReturn[country].Add((fi.Name.Split(new char[1] { '.' })[1], matchList));
                             else
                             {
                                 var seasonData = toReturn[country].FirstOrDefault(x => x.competition == fi.Name.Split(new char[1] { '.' })[1]);
-                                seasonData.matches.AddRange(matches);
+                                seasonData.matches.AddRange(matchList);
                             }
                         }
                         else                        
-                            toReturn.Add(country, new List<(string competition, List<Data.Match> matches)> { (fi.Name.Split(new char[1] { '.' })[1], matches) });                        
+                            toReturn.Add(country, new List<(string competition, List<Data.MatchExt> matches)> { (fi.Name.Split(new char[1] { '.' })[1], matchList) });                        
                     }
                 }
             }
@@ -83,9 +81,7 @@ namespace AISoccerAPI.JSON.FootballJSON
             return toReturn;
         }
 
-        #region Private methods
-
-        private Dictionary<string,string> GetCountryByAbbr()
+        public Dictionary<string, string> GetCountryByAbbr()
         {
             var toReturn = new Dictionary<string, string>();
 
@@ -112,8 +108,6 @@ namespace AISoccerAPI.JSON.FootballJSON
             toReturn.Add("be", "Belgium");
 
             return toReturn;
-        }
-
-        #endregion
+        }        
     }
 }
