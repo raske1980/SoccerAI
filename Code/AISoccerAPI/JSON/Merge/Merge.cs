@@ -2,6 +2,7 @@
 using AISoccerAPI.Data;
 using AISoccerAPI.JSON.Merge.Data;
 using AISoccerAPI.JSON.OpenData;
+using AISoccerAPI.JSON.OpenData.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,7 +47,17 @@ namespace AISoccerAPI.JSON.Merge
         {
             //this method needs to normalize data from all sources, remove duplicates
             List<JSONMatch> toReturn = new List<JSONMatch>();
-            
+
+            Dictionary<string, List<(string leagueOpenData, string leagueFootballJSON)>> leagueMappings = 
+                new Dictionary<string, List<(string leagueOpenData, string leagueFootballJSON)>>();
+            leagueMappings.Add("Germany", new List<(string leagueOpenData, string leagueFootballJSON)> { ("1", "1. Bundesliga") });
+            leagueMappings.Add("Spain", new List<(string leagueOpenData, string leagueFootballJSON)> { ("1", "La Liga") });
+            leagueMappings.Add("England", new List<(string leagueOpenData, string leagueFootballJSON)> { ("1", "Premier League") });
+            leagueMappings.Add("Argentina", new List<(string leagueOpenData, string leagueFootballJSON)> { ("1", "Liga Profesional") });
+            leagueMappings.Add("France", new List<(string leagueOpenData, string leagueFootballJSON)> { ("1", "Ligue 1") });
+            leagueMappings.Add("Italy", new List<(string leagueOpenData, string leagueFootballJSON)> { ("1", "Serie A") });
+            List<string> leagueNames = new List<string> { "1. Bundesliga", "La Liga", "Premier League", "Liga Professional", "Ligue 1", "Serie A" };
+
             //iterate through open data matches
             var openDataCompetitions = new OpenDataExtract().GetCompetitions(appConfig);
             List<int> openDataMatchIds = new List<int>();
@@ -63,6 +74,7 @@ namespace AISoccerAPI.JSON.Merge
                         while (openDataMatchIds.Contains(matchId))
                             matchId = new Random().Next(1, OpenDataRandomLimit);
                         openDataMatchIds.Add(matchId);
+                        
                         toReturn.Add(new JSONMatch { 
                             AwayTeam = match.away_team.away_team_name,
                             AwayTeamGoals = match.away_score,
@@ -71,18 +83,20 @@ namespace AISoccerAPI.JSON.Merge
                             MatchPlayed = matchDate,
                             Season = competition != null ? competition.SeasonName : string.Empty,
                             Country = keyValuePair.Key,
-                            Competition = competition != null ? competition.CompetitionName : string.Empty,
+                            Competition = competition.CompetitionName,
                             MatchId = matchId
                         });
                     }
                 }                
             }
 
-            List<int> footballJSONMatchIds = new List<int>();
+            //iterate through FootballJSON matches
+            List<int> footballJSONMatchIds = new List<int>();            
             foreach(var keyValuePair in footballJSON)
             {
-                var country = new OpenDataExtract().GetAbbrevationForCountries()[keyValuePair.Key];
-                foreach(var item in keyValuePair.Value)
+                var country = keyValuePair.Key;
+                
+                foreach (var item in keyValuePair.Value)
                 {
                     foreach(var match in item.matches)
                     {
@@ -90,44 +104,91 @@ namespace AISoccerAPI.JSON.Merge
                         DateTime.TryParse(match.date, out matchDate);
                         var matchId = new Random().Next(OpenDataRandomLimit, FootballJSONRandomLimit);
                         while (openDataMatchIds.Contains(matchId))
-                            matchId = new Random().Next(1, OpenDataRandomLimit);
+                            matchId = new Random().Next(OpenDataRandomLimit + 1, FootballJSONRandomLimit);
                         openDataMatchIds.Add(matchId);
                         if(toReturn.FirstOrDefault(x=>x.Country == country && 
                                                         x.HomeTeam == match.team1 && 
-                                                        x.AwayTeam == match.team2) == null)
+                                                        x.AwayTeam == match.team2) == null &&
+                                                        match.score != null && match.score.ft != null)
                         {
-                            toReturn.Add(new JSONMatch { 
+                            string mappedCompetitionName = leagueMappings.ContainsKey(keyValuePair.Key) ?
+                                        (leagueMappings[keyValuePair.Key].Where(x => x.leagueOpenData == item.competition).Count() > 0 ?
+                                            leagueMappings[keyValuePair.Key].FirstOrDefault(x => x.leagueOpenData == item.competition).leagueFootballJSON : string.Empty) :
+                                            string.Empty;
+
+                            string seasonName = match.season;
+                            foreach (var competition in leagueNames)
+                                seasonName = seasonName.Replace(competition, string.Empty).Trim();
+
+                            if(string.IsNullOrEmpty(mappedCompetitionName))
+                            {
+                                var seasonNameList = seasonName.Split(new char[1] { ' ' }).ToList();
+                                seasonName = seasonNameList[seasonNameList.Count - 1];
+                                for (var i = 0; i < seasonNameList.Count - 1; i++)
+                                    mappedCompetitionName += seasonNameList[i] + " ";
+                                mappedCompetitionName = mappedCompetitionName.Trim();
+                            }
+
+                            toReturn.Add(new JSONMatch
+                            {
                                 AwayTeam = match.team2,
                                 AwayTeamGoals = match.score.ft[1],
-                                Competition = keyValuePair.Key,
+                                Competition = mappedCompetitionName,
                                 Country = country,
                                 HomeTeam = match.team1,
                                 HomeTeamGoals = match.score.ft[0],
                                 MatchId = matchId,
                                 MatchPlayed = matchDate,
-                                Season = match.season                                
+                                Season = seasonName
                             });
                         }
                     }                    
                 }
             }
-
-            //we have merged 2 json sources here (avoiding duplicates between 2 lists),
-            //next step will be eliminate duplicates from this list by using MatchFeatures file,
-            //where (despite that we dont have dates now) we will compare name of the teams and final result,
-            //and if it is the same then we have duplocate so that means that we will remove it from unique list,
-            //and after that we will group matches by country and season (we will need mapping for seasons from one source to the other one)
-            //and after that we can create JSON MatchFeature file that will be merged with other files
-
+           
             return toReturn;
         }
 
         public List<MatchFeatures> GetMatchFeatures(List<JSONMatch> matches)
         {
-            List<MatchFeatures> matchFeatures = new List<MatchFeatures>();
             //this method needs to use normalized data and to create
             //match features that will also later when it is merged with
             //API features be filtered from duplicates
+
+            List<MatchFeatures> matchFeatures = new List<MatchFeatures>();
+
+            //grouping by country
+            var countryList = matches.Select(x => x.Country).Distinct().ToList();
+            Dictionary<string, List<JSONMatch>> matchesByCountry = new Dictionary<string, List<JSONMatch>>();
+            foreach (var country in countryList)
+                matchesByCountry.Add(country, matches.FindAll(x => x.Country == country));
+
+            //group by competition for each country
+            Dictionary<string, List<string>> competitionsByCountry = new Dictionary<string, List<string>>();
+            foreach (var keyValuePair in matchesByCountry)
+            {
+                var competitions = keyValuePair.Value.Where(x => 
+                                                                x.Country == keyValuePair.Key).
+                                                                Select(x => x.Competition).
+                                                                Distinct().
+                                                                ToList();
+                competitions.ToList().RemoveAll(x => string.IsNullOrEmpty(x));
+                competitionsByCountry.Add(keyValuePair.Key, competitions);
+            }
+
+            //we will group matches by competitions (list for duplicate name for competitions exist),
+            //and when we make union of all duplicate competitions then we will need to group them by season
+            //and on season level we will create matchfeatures (because we need to calculate standing manually by season,
+            //because we dont have that information)
+            foreach (var keyValuePair in matchesByCountry)
+            {
+                var competitions = competitionsByCountry[keyValuePair.Key];
+                foreach (var competition in competitions)
+                {
+                    var competitionMatches = keyValuePair.Value.FindAll(x => x.Competition == competition);
+                }
+            }
+
             return matchFeatures;
         }
 

@@ -57,7 +57,7 @@ try
     #region Predictions
 
     //make predictions
-    if (appConfig.AppSettingsConfig.PredictData)
+     if (appConfig.AppSettingsConfig.PredictData)
     {        
         
         var predictLeagueIDsArray = appConfig.SoccerAPIConfig.PredictLeagueIDs.Split(new char[1] { ',' });
@@ -75,7 +75,7 @@ try
 
     //var openData =  new OpenDataExtract().OpenDataExtractPrepareData(appConfig);
     //var footballJSON = new FootballJSONExtract().PrepareData(appConfig);
-    //var mergedFeatures = new Merge().MergeAll(openData, footballJSON);
+    //var mergedFeatures = new Merge().MergeAll(openData, footballJSON, appConfig);
     //to obtain matches from football json, then to merge  them (remove duplicates) when
     //join match feature list is made for both json sources, then merged features
     //write to JSON folder and then it will be merged with others api features (also check for duplicates so JSON matches are not saved if

@@ -16,6 +16,11 @@ namespace AISoccerAPI.JSON.FootballJSON.Data
         public string team2 { get; set; }
         public Score score { get; set; }
 
+        public Match()
+        {
+
+        }
+
         public Match(Match match)
         {
             this.round = match.round;

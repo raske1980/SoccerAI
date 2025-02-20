@@ -100,18 +100,18 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                 float predictedAwayGoals = awayPredictionEngine.Predict(newMatch).PredictedGoals;
 
                 // Display predictions
-                Console.WriteLine($"Predicted Home Goals For {homeTeam}: {predictedHomeGoals}");
-                Console.WriteLine($"Predicted Away Goals For {awayTeam}: {predictedAwayGoals}");
-                Console.WriteLine($"Predicted Total Goals For {homeTeam} - {awayTeam}: {predictedHomeGoals + predictedAwayGoals}");
+                Console.WriteLine($"Predicted Home Goals For {homeTeam}: {Math.Round(predictedHomeGoals,1)}");
+                Console.WriteLine($"Predicted Away Goals For {awayTeam}: {Math.Round(predictedAwayGoals,1)}");
+                Console.WriteLine($"Predicted Total Goals For {homeTeam} - {awayTeam}: {Math.Round(predictedHomeGoals + predictedAwayGoals,1)}");
                 Console.WriteLine();
                 //add prediction to the list with its duplicate that will serve as actual match data where we are going to populate with actual results
                 predictions.Add(new MatchPredictionResult { 
                     Category = MatchCategory.Prediction,
                     HomeTeam = homeTeam,
                     AwayTeam = awayTeam,
-                    HomeTeamGoals = predictedHomeGoals,
-                    AwayTeamGoals = predictedAwayGoals,
-                    TotalGoals = predictedHomeGoals + predictedAwayGoals,     
+                    HomeTeamGoals = Math.Round(predictedHomeGoals,1),
+                    AwayTeamGoals = Math.Round(predictedAwayGoals),
+                    TotalGoals = Math.Round(predictedHomeGoals + predictedAwayGoals),     
                     DatePlayed = currentRoundFixture.Time.Date
                 });
 

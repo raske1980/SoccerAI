@@ -98,7 +98,7 @@ namespace AISoccerAPI.JSON.FootballJSON
             toReturn.Add("gr", "Greece");
             toReturn.Add("hu", "Hungary");
             toReturn.Add("nl", "Nederland");
-            toReturn.Add("pt", "Poland");
+            toReturn.Add("pt", "Portugal");
             toReturn.Add("ru", "Russia");
             toReturn.Add("sco", "Scotland");
             toReturn.Add("tr", "Turkey");
