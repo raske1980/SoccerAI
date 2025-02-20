@@ -16,11 +16,14 @@ namespace AISoccerAPI.JSON.Merge
     {
         #region Properties
 
+        #endregion
+
+        #region Consts
+
         private const int OpenDataRandomLimit = 3000;
         private const int FootballJSONRandomLimit = 150000;
 
         #endregion
-
 
         #region Constructors
 
