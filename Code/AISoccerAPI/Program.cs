@@ -57,7 +57,7 @@ try
     #region Predictions
 
     //make predictions
-     if (appConfig.AppSettingsConfig.PredictData)
+    if (appConfig.AppSettingsConfig.PredictData)
     {        
         
         var predictLeagueIDsArray = appConfig.SoccerAPIConfig.PredictLeagueIDs.Split(new char[1] { ',' });
