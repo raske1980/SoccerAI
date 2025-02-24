@@ -39,11 +39,11 @@ try
     if (appConfig.AppSettingsConfig.TrainData)
     {
         //Soccer API
-        //await new PrepareData().PrepareDataForTraining(appConfig);
+        await new PrepareData().PrepareDataForTraining(appConfig);
 
         //Football API
         //await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);
-        //await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIDataForDates(appConfig);
+        await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIDataForDates(appConfig);
 
         //JSON sources
         new Merge().StartMergeJSON(appConfig);
