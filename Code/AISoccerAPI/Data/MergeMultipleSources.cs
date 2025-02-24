@@ -63,25 +63,20 @@ namespace AISoccerAPI.Data
 
         public void MergeJSONFeatures(AppConfig appConfig)
         {
-            //load first open data
-            var openDataFeatures = new List<MatchFeatures>();
-            if(File.Exists(appConfig.OpenDataConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
-                openDataFeatures = new CSVSerialization().
-                    LoadFeaturesFromCSV(appConfig.FootballAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            //load json match features
+            var parentFolder = new DirectoryInfo(appConfig.OpenDataConfig.BaseFolderPath).Parent.FullName;
+            var jsonFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(parentFolder + "\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            var apiFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            HashSet<MatchFeatures> apiHashSet = new HashSet<MatchFeatures>(apiFeatures);            
 
-            //load second footbal json
-            var footbalJSONFeatures = new List<MatchFeatures>();
-            if(File.Exists(appConfig.FootballJSONConfig + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))            
-                footbalJSONFeatures = new CSVSerialization().
-                    LoadFeaturesFromCSV(appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            //removing duplicates
+            List<MatchFeatures> toRemove = new List<MatchFeatures>();
+            jsonFeatures.RemoveAll(x => apiHashSet.Contains(x));                        
 
-            //make union and write them to the JSON folder
-            openDataFeatures.AddRange(footbalJSONFeatures);
-            if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
-                File.Delete(appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
-
-            new CSVSerialization().SaveFeaturesToCsv(openDataFeatures, 
-                appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            new CSVSerialization().SaveFeaturesToCsv(jsonFeatures,
+                appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);            
         }
     }
 }

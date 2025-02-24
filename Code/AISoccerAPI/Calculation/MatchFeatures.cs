@@ -33,6 +33,27 @@ namespace AISoccerAPI.Calculation
         public float HomeGoals { get; set; }
         [LoadColumn(11)]
         public float AwayGoals { get; set; }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj != null)
+            {
+                var matchFeature = obj as MatchFeatures;
+                if (matchFeature != null)                
+                    return this.HomeTeam == matchFeature.HomeTeam &&
+                            this.AwayTeam == matchFeature.AwayTeam &&
+                            this.Date == matchFeature.Date;                
+                else
+                    return false;
+            }
+            else
+                return false;
+        }
+
+        public override int GetHashCode()
+        {
+            return this.Date.GetHashCode() + this.HomeTeam.GetHashCode() + this.AwayTeam.GetHashCode();
+        }
     }
 
     public class MatchPrediction
