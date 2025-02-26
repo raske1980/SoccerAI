@@ -89,6 +89,7 @@ namespace AISoccerAPI.Data
     public class AppSettingsConfig
     {
         public string BaseFolderPath { get; set; }
+        public string BaseTenserFlowPath { get; set; }
         public string MatchFeaturesCSVFileName { get; set; }
         public string PredictionCSVFileName { get; set; }
         public bool TrainData { get; set; }
@@ -97,6 +98,7 @@ namespace AISoccerAPI.Data
         public AppSettingsConfig(IConfiguration configuration)
         {
             this.BaseFolderPath = configuration["AppSettings:baseFolderPath"];
+            this.BaseTenserFlowPath = configuration["AppSettings:baseTenserFlowPath"];
             this.MatchFeaturesCSVFileName = configuration["AppSettings:matchFeaturesCSVFileName"];           
             this.PredictionCSVFileName = configuration["AppSettings:predictionCSVFileName"];
             this.TrainData = Convert.ToBoolean(configuration["AppSettings:trainData"]);
