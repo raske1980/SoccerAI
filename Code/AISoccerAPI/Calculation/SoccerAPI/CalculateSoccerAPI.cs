@@ -16,6 +16,15 @@ namespace AISoccerAPI.Calculation.SoccerAPI
     public class CalculateSoccerAPI
     {
 
+        #region Constructors
+
+        public CalculateSoccerAPI()
+        {
+
+        }
+
+        #endregion
+
         #region Methods
 
         public async Task<List<MatchFeatures>> CalculateMatchFeatures(LeagueDetailsResponse leagueDetails, string user, string token)
