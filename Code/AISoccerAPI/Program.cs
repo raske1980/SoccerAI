@@ -14,6 +14,7 @@ using AISoccerAPI.Consts;
 using AISoccerAPI.JSON.OpenData;
 using AISoccerAPI.JSON.FootballJSON;
 using AISoccerAPI.JSON.Merge;
+using AISoccerAPI.TensorFlow;
 
 
 try
@@ -53,6 +54,8 @@ try
 
         //train data based on data from all sources
         new TrainModel().StartTrainModel(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+        //new TrainTFModel().TrainModel(appConfig);
     }        
 
     #endregion

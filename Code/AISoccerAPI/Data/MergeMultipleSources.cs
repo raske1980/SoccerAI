@@ -11,6 +11,19 @@ namespace AISoccerAPI.Data
 {
     public class MergeMultipleSources
     {
+
+        #region Constructors
+
+        public MergeMultipleSources()
+        {
+
+        }
+
+        #endregion
+
+
+        #region Methods
+
         public void MergeFeatures(AppConfig appConfig)
         {
             MergeAPIFeatures(appConfig);
@@ -20,7 +33,9 @@ namespace AISoccerAPI.Data
             MergeAllFeatures(appConfig);
         }
 
-        public void MergeAllFeatures(AppConfig appConfig)
+        #region Private Methods
+
+        private void MergeAllFeatures(AppConfig appConfig)
         {
             //load api fetures
             var apiFeatures = new List<MatchFeatures>();
@@ -36,10 +51,11 @@ namespace AISoccerAPI.Data
 
             //union of all features and write them down to main folder
             apiFeatures.AddRange(jsonFeatures);
+            FixValues(apiFeatures);
             new CSVSerialization().SaveFeaturesToCsv(apiFeatures, appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
         }
-
-        public void MergeAPIFeatures(AppConfig appConfig)
+        
+        private void MergeAPIFeatures(AppConfig appConfig)
         {
             //load first football api features
             var footballAPIFeatures = new List<MatchFeatures>();
@@ -61,7 +77,7 @@ namespace AISoccerAPI.Data
             new CSVSerialization().SaveFeaturesToCsv(footballAPIFeatures, appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
         }
 
-        public void MergeJSONFeatures(AppConfig appConfig)
+        private void MergeJSONFeatures(AppConfig appConfig)
         {
             //load json match features
             var parentFolder = new DirectoryInfo(appConfig.OpenDataConfig.BaseFolderPath).Parent.FullName;
@@ -78,5 +94,42 @@ namespace AISoccerAPI.Data
             new CSVSerialization().SaveFeaturesToCsv(jsonFeatures,
                 appConfig.AppSettingsConfig.BaseFolderPath + "JSON\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);            
         }
+
+        private void FixValues(List<MatchFeatures> allFeatures)
+        {
+            foreach (var feature in allFeatures)
+            {
+                if (Double.IsNaN(feature.GoalDifference) || Double.IsInfinity(feature.GoalDifference))
+                    feature.GoalDifference = 0d;
+
+                if (Double.IsNaN(feature.FormMomentumHome) || Double.IsInfinity(feature.FormMomentumHome))
+                    feature.FormMomentumHome = 0d;
+
+                if (Double.IsNaN(feature.LeagueRankDifference) || Double.IsInfinity(feature.LeagueRankDifference))
+                    feature.LeagueRankDifference = 0d;
+
+                if (Single.IsNaN(feature.AwayGoals) || Single.IsInfinity(feature.AwayGoals))
+                    feature.AwayGoals = 0f;
+
+                if (Double.IsNaN(feature.FormMomentumAway) || Double.IsInfinity(feature.FormMomentumAway))
+                    feature.FormMomentumAway = 0d;
+
+                if (Single.IsNaN(feature.HomeGoals) || Single.IsInfinity(feature.HomeGoals))
+                    feature.HomeGoals = 0f;
+
+                if (Double.IsNaN(feature.GoalDifference) || Double.IsInfinity(feature.GoalDifference))
+                    feature.GoalDifference = 0d;
+
+                if (Double.IsNaN(feature.WinRateAway) || Double.IsInfinity(feature.WinRateAway))
+                    feature.WinRateAway = 0d;
+
+                if (Double.IsNaN(feature.WinRateHome) || Double.IsInfinity(feature.WinRateHome))
+                    feature.WinRateHome = 0d;
+            }
+        }
+
+        #endregion
+
+        #endregion
     }
 }

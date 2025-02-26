@@ -7,6 +7,7 @@ using AISoccerAPI.Calculation.SoccerAPI;
 using AISoccerAPI.Consts;
 using AISoccerAPI.Data;
 using AISoccerAPI.ML;
+using AISoccerAPI.TensorFlow;
 using CsvHelper;
 using Microsoft.ML;
 using Newtonsoft.Json;
@@ -22,6 +23,18 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 {
     public class FixtureData
     {
+
+        #region Constructors
+
+        public FixtureData()
+        {
+
+        }
+
+        #endregion
+
+        #region Methods
+
         public async Task<List<MatchPredictionResult>> GetFixturesPrediction(AppConfig appConfig, string leagueId)
         {
             //get fixtures from the API
@@ -53,7 +66,9 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 
             //load models
             var models = new SaveLoadModel().LoadModels(
-                new FileInfo(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName).Directory.FullName);    
+                new FileInfo(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName).Directory.FullName);
+
+            //var tfModel = new SaveLoadTFModel().LoadModel(appConfig);
             
             List<MatchPredictionResult> predictions = new List<MatchPredictionResult>();
 
@@ -125,12 +140,19 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                     TotalGoals = 0,
                     DatePlayed = currentRoundFixture.Time.Date
                 });
+
+                //tf predictions
+                //newMatch.HomeTeam = homeTeam;
+                //newMatch.AwayTeam = awayTeam;
+                //new PredictTF().Predict(newMatch, tfModel);
             }
             Console.WriteLine();
             Console.WriteLine();
 
             return predictions;
         }
+
+        #region Private Methods
 
         private float CalculateFormMomentum(List<MatchFeatures> matches, string team)
         {
@@ -166,6 +188,11 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
             float formMomentum = sumOfPoints / sumOfWeights;
             return formMomentum;
         }
+
+        #endregion
+
+        #endregion
+
     }
 }
 
