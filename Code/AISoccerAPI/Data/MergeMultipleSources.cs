@@ -117,9 +117,6 @@ namespace AISoccerAPI.Data
                 if (Single.IsNaN(feature.HomeGoals) || Single.IsInfinity(feature.HomeGoals))
                     feature.HomeGoals = 0f;
 
-                if (Double.IsNaN(feature.GoalDifference) || Double.IsInfinity(feature.GoalDifference))
-                    feature.GoalDifference = 0d;
-
                 if (Double.IsNaN(feature.WinRateAway) || Double.IsInfinity(feature.WinRateAway))
                     feature.WinRateAway = 0d;
 
