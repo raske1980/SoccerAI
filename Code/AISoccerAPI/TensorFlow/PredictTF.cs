@@ -7,7 +7,7 @@ namespace AISoccerAPI.TensorFlow
 {
     public class PredictTF
     {
-        public void Predict(MatchFeatures matchFeature, IModel model)
+        public (float homeGoalsPrediction, float awayGoalsPrediction) Predict(MatchFeatures matchFeature, IModel model)
         {
             var newMatch = new float[,] { {
                 (float)matchFeature.GoalDifference,
@@ -27,6 +27,8 @@ namespace AISoccerAPI.TensorFlow
             // Access prediction values correctly
             Console.WriteLine($"Predicted Tenser Flow Home Goals For {matchFeature.HomeTeam}: {predictionArray[0][0]}");
             Console.WriteLine($"Predicted Tenser Flow Away Goals For {matchFeature.AwayTeam}: {predictionArray[0][1]}");
+
+            return (predictionArray[0][0], predictionArray[0][1]);
         }
     }
 }

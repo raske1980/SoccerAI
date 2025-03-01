@@ -20,13 +20,13 @@ namespace AISoccerAPI.Data
 
     public class MatchPredictionResult
     {
-        public string Category { get; set; }
+        public string Category { get; set; }        
         public string HomeTeam { get; set; }
         public string AwayTeam { get; set; }
         public double HomeTeamGoals { get; set; }
         public double AwayTeamGoals { get; set; }
         public double TotalGoals { get; set; }
-
         public string DatePlayed { get; set; }
+        public string Source { get; set; }
     }
 }

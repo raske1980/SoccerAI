@@ -23,6 +23,12 @@ namespace AISoccerAPI.Consts
         public const string Actual = "Actual";
     }
 
+    public class PredictionSource
+    {
+        public const string ML = "ML";
+        public const string TF = "TF";
+    }
+
     public class Exclusions
     {
 
