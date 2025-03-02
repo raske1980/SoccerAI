@@ -39,11 +39,14 @@ namespace AISoccerAPI.TensorFlow
                     LoadFeaturesFromCSV(new DirectoryInfo(appConfig.AppSettingsConfig.BaseFolderPath) + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
             if (allMatchFeatures == null || allMatchFeatures.Count == 0)            
-                throw new Exception("No match data available for training.");            
+                throw new Exception("No match data available for training.");
+
+            DateTime parsedDate = DateTime.MinValue;
+            allMatchFeatures.OrderByDescending(x => { DateTime.TryParse(x.Date, out parsedDate); return parsedDate; });
 
             (NDArray trainX, NDArray trainY, NDArray testX, NDArray testY) = PrepareData(allMatchFeatures);
             var model = BuildModel();
-            model.compile(optimizer: new Adam(learning_rate: 0.001f),
+            model.compile(optimizer: new Adam(learning_rate: 0.0001f),
               loss: new MeanSquaredError(),
               metrics: new[] { "mae" });
             model.fit(trainX, trainY, batch_size: 256, epochs: 300, validation_data: (testX, testY));

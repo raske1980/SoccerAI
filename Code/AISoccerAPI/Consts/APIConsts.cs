@@ -14,7 +14,7 @@ namespace AISoccerAPI.Consts
         public const int Lost = 0;
         public const double WeightFactor = 0.2;
         public const int FormMomentumMax = 5;
-        public const int MaxFootballAPIRequests = 30;        
+        public const int MaxFootballAPIRequests = 35;        
     }
 
     public class MatchCategory

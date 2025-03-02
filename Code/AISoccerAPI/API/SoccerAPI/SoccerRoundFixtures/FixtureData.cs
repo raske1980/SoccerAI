@@ -68,7 +68,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
             var models = new SaveLoadModel().LoadModels(
                 new FileInfo(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName).Directory.FullName);
 
-            //var tfModel = new SaveLoadTFModel().LoadModel(appConfig);
+            var tfModel = new SaveLoadTFModel().LoadModel(appConfig);
             
             List<MatchPredictionResult> predictions = new List<MatchPredictionResult>();
 
@@ -117,23 +117,23 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                 // Display predictions
                 Console.WriteLine($"Predicted Home Goals For {homeTeam}: {Math.Round(predictedHomeGoals,1)}");
                 Console.WriteLine($"Predicted Away Goals For {awayTeam}: {Math.Round(predictedAwayGoals,1)}");
-                Console.WriteLine($"Predicted Total Goals For {homeTeam} - {awayTeam}: {Math.Round(Math.Round(predictedHomeGoals,1) + Math.Round(predictedAwayGoals,1),1)}");                
+                Console.WriteLine($"Predicted Total Goals For {homeTeam} - {awayTeam}: {Math.Round(Math.Round(predictedHomeGoals,1) + Math.Round(predictedAwayGoals,1),1)}");
                 //add prediction to the list with its duplicate that will serve as actual match data where we are going to populate with actual results                
                 //tf predictions
-                //newMatch.HomeTeam = homeTeam;
-                //newMatch.AwayTeam = awayTeam;
-                //var predictionTF = new PredictTF().Predict(newMatch, tfModel);
-                //predictions.Add(new MatchPredictionResult
-                //{
-                //    Category = MatchCategory.Prediction,
-                //    Source = PredictionSource.TF,
-                //    HomeTeam = homeTeam,
-                //    AwayTeam = awayTeam,
-                //    HomeTeamGoals = Math.Round(predictionTF.homeGoalsPrediction, 1),
-                //    AwayTeamGoals = Math.Round(predictionTF.awayGoalsPrediction, 1),
-                //    TotalGoals = Math.Round(Math.Round(predictionTF.homeGoalsPrediction, 1) + Math.Round(predictionTF.awayGoalsPrediction, 1), 1),
-                //    DatePlayed = currentRoundFixture.Time.Date
-                //});
+                newMatch.HomeTeam = homeTeam;
+                newMatch.AwayTeam = awayTeam;
+                var predictionTF = new PredictTF().Predict(newMatch, tfModel);
+                predictions.Add(new MatchPredictionResult
+                {
+                    Category = MatchCategory.Prediction,
+                    Source = PredictionSource.TF,
+                    HomeTeam = homeTeam,
+                    AwayTeam = awayTeam,
+                    HomeTeamGoals = Math.Round(predictionTF.homeGoalsPrediction, 1),
+                    AwayTeamGoals = Math.Round(predictionTF.awayGoalsPrediction, 1),
+                    TotalGoals = Math.Round(Math.Round(predictionTF.homeGoalsPrediction, 1) + Math.Round(predictionTF.awayGoalsPrediction, 1), 1),
+                    DatePlayed = currentRoundFixture.Time.Date
+                });
                 //ml predictions
                 predictions.Add(new MatchPredictionResult
                 {
