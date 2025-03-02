@@ -5,6 +5,113 @@
     {
       "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\tensorflow\\traintfmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\tensorflow\\traintfmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\api\\footballapi\\preparedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\api\\footballapi\\preparedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\api\\soccerapi\\soccerroundfixtures\\fixturedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\api\\soccerapi\\soccerroundfixtures\\fixturedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\data\\prediction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\data\\prediction.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\consts\\apiconsts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\consts\\apiconsts.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\tensorflow\\predicttf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\tensorflow\\predicttf.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\data\\mergemultiplesources.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\data\\mergemultiplesources.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\calculation\\soccerapi\\calculatesoccerapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\calculation\\soccerapi\\calculatesoccerapi.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\data\\preparedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\data\\preparedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\tensorflow\\saveloadtfmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\tensorflow\\saveloadtfmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\data\\appconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\data\\appconfig.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\calculation\\matchfeatures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\calculation\\matchfeatures.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\ml\\trainmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\ml\\trainmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\merge\\merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\merge\\merge.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\serialization\\csvserialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\serialization\\csvserialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\footballjson\\footballjsonextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\footballjson\\footballjsonextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendata\\opendataextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendata\\opendataextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\footballjson\\data\\league.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\footballjson\\data\\league.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\api\\soccerapi\\soccerleaguedetail\\soccerleaguedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\api\\soccerapi\\soccerleaguedetail\\soccerleaguedata.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\api\\footballapi\\responses\\footbalapifixturesresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\api\\footballapi\\responses\\footbalapifixturesresponse.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\merge\\data\\jsonmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\merge\\data\\jsonmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendata\\data\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendata\\data\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\aisoccerapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\aisoccerapi.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendata\\data\\competition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendata\\data\\competition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\ml\\saveloadmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\ml\\saveloadmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\raske\\AppData\\Local\\SourceServer\\08baea40ab9d9fe13a96a815f7d0a7c7be59b735e2d099671dc9aa470b4a415a\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -14,11 +121,15 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
               "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
             },
             {
               "$type": "Document",
@@ -28,10 +139,342 @@
               "RelativeDocumentMoniker": "AISoccerAPI\\Program.cs",
               "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Program.cs",
               "RelativeToolTip": "AISoccerAPI\\Program.cs",
-              "ViewState": "AQIAAAkAAAAAAAAAAAAAAE8AAACQAAAA",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAACcAAAAIAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-23T17:36:32.285Z",
               "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "AppConfig.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\AppConfig.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Data\\AppConfig.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\AppConfig.cs",
+              "RelativeToolTip": "AISoccerAPI\\Data\\AppConfig.cs",
+              "ViewState": "AgIAAFUAAAAAAAAAAAAkwGQAAABTAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-08T17:59:35.35Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "PrepareData.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\PrepareData.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Data\\PrepareData.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\PrepareData.cs",
+              "RelativeToolTip": "AISoccerAPI\\Data\\PrepareData.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAUwBcAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T22:30:29.772Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Prediction.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\Prediction.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Data\\Prediction.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\Prediction.cs",
+              "RelativeToolTip": "AISoccerAPI\\Data\\Prediction.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAzwBsAAAAuAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-20T16:19:08.779Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "APIConsts.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Consts\\APIConsts.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Consts\\APIConsts.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Consts\\APIConsts.cs",
+              "RelativeToolTip": "AISoccerAPI\\Consts\\APIConsts.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAUwBwAAAAkAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-27T15:05:52.48Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "PredictTF.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\TensorFlow\\PredictTF.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\TensorFlow\\PredictTF.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\TensorFlow\\PredictTF.cs",
+              "RelativeToolTip": "AISoccerAPI\\TensorFlow\\PredictTF.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAQwB4AAABCAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T14:19:21.935Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "TrainTFModel.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\TensorFlow\\TrainTFModel.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\TensorFlow\\TrainTFModel.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\TensorFlow\\TrainTFModel.cs",
+              "RelativeToolTip": "AISoccerAPI\\TensorFlow\\TrainTFModel.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAAAAADAAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T13:28:11.03Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "FixtureData.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "RelativeToolTip": "AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "ViewState": "AgIAAIUAAAAAAAAAAAAkwKQAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T15:31:51.545Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PrepareData.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\FootballAPI\\PrepareData.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\API\\FootballAPI\\PrepareData.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\FootballAPI\\PrepareData.cs",
+              "RelativeToolTip": "AISoccerAPI\\API\\FootballAPI\\PrepareData.cs",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAUwCgAAAAVAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-05T14:40:27.253Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "SaveLoadTFModel.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\TensorFlow\\SaveLoadTFModel.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\TensorFlow\\SaveLoadTFModel.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\TensorFlow\\SaveLoadTFModel.cs",
+              "RelativeToolTip": "AISoccerAPI\\TensorFlow\\SaveLoadTFModel.cs",
+              "ViewState": "AgIAAAEAAAAAAAAAAAAIwBEAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-25T13:54:02.051Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "appsettings.json",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\appsettings.json",
+              "RelativeDocumentMoniker": "AISoccerAPI\\appsettings.json",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\appsettings.json",
+              "RelativeToolTip": "AISoccerAPI\\appsettings.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-02-06T14:04:41.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "MergeMultipleSources.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\MergeMultipleSources.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Data\\MergeMultipleSources.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Data\\MergeMultipleSources.cs",
+              "RelativeToolTip": "AISoccerAPI\\Data\\MergeMultipleSources.cs",
+              "ViewState": "AgIAACUAAAAAAAAAAAA1wDQAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T13:59:48.312Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "CalculateSoccerAPI.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Calculation\\SoccerAPI\\CalculateSoccerAPI.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Calculation\\SoccerAPI\\CalculateSoccerAPI.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Calculation\\SoccerAPI\\CalculateSoccerAPI.cs",
+              "RelativeToolTip": "AISoccerAPI\\Calculation\\SoccerAPI\\CalculateSoccerAPI.cs",
+              "ViewState": "AgIAAAIAAAAAAAAAAAAAABIAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T12:48:27.169Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "MatchFeatures.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Calculation\\MatchFeatures.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Calculation\\MatchFeatures.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Calculation\\MatchFeatures.cs",
+              "RelativeToolTip": "AISoccerAPI\\Calculation\\MatchFeatures.cs",
+              "ViewState": "AgIAABQAAAAAAAAAAADwvycAAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-24T15:29:09.862Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "Merge.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\Merge\\Merge.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\Merge\\Merge.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\Merge\\Merge.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\Merge\\Merge.cs",
+              "ViewState": "AgIAAOsAAAAAAAAAAAAkwAoBAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T16:20:54.874Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "TrainModel.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\ML\\TrainModel.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\ML\\TrainModel.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\ML\\TrainModel.cs",
+              "RelativeToolTip": "AISoccerAPI\\ML\\TrainModel.cs",
+              "ViewState": "AgIAABcAAAAAAAAAAAAkwDYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-04T17:07:59.332Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "CSVSerialization.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Serialization\\CSVSerialization.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\Serialization\\CSVSerialization.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\Serialization\\CSVSerialization.cs",
+              "RelativeToolTip": "AISoccerAPI\\Serialization\\CSVSerialization.cs",
+              "ViewState": "AgIAAAQAAAAAAAAAAAAYwBEAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T14:04:33.12Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "League.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\FootballJSON\\Data\\League.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\FootballJSON\\Data\\League.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\FootballJSON\\Data\\League.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\FootballJSON\\Data\\League.cs",
+              "ViewState": "AgIAACMAAAAAAAAAAAAYwDIAAAAMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T14:59:13.067Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "FootballJSONExtract.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\FootballJSON\\FootballJSONExtract.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\FootballJSON\\FootballJSONExtract.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\FootballJSON\\FootballJSONExtract.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\FootballJSON\\FootballJSONExtract.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAA4wAIAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T15:01:02.768Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "OpenDataExtract.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAADwv1UAAABSAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T13:51:54.365Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "FootbalApiFixturesResponse.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\FootballAPI\\Responses\\FootbalApiFixturesResponse.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\API\\FootballAPI\\Responses\\FootbalApiFixturesResponse.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\FootballAPI\\Responses\\FootbalApiFixturesResponse.cs",
+              "RelativeToolTip": "AISoccerAPI\\API\\FootballAPI\\Responses\\FootbalApiFixturesResponse.cs",
+              "ViewState": "AgIAANAAAAAAAAAAAAAewNsAAAARAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-06T14:41:42.262Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "Match.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
+              "ViewState": "AgIAAEoAAAAAAAAAAAA4wFMAAAAYAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T14:00:45.83Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "SoccerLeagueData.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerLeagueDetail\\SoccerLeagueData.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\API\\SoccerAPI\\SoccerLeagueDetail\\SoccerLeagueData.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerLeagueDetail\\SoccerLeagueData.cs",
+              "RelativeToolTip": "AISoccerAPI\\API\\SoccerAPI\\SoccerLeagueDetail\\SoccerLeagueData.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-19T14:49:00.606Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "JSONMatch.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\Merge\\Data\\JSONMatch.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\Merge\\Data\\JSONMatch.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\Merge\\Data\\JSONMatch.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\Merge\\Data\\JSONMatch.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-18T16:27:50.598Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "AISoccerAPI.csproj",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\AISoccerAPI.csproj",
+              "RelativeDocumentMoniker": "AISoccerAPI\\AISoccerAPI.csproj",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\AISoccerAPI.csproj",
+              "RelativeToolTip": "AISoccerAPI\\AISoccerAPI.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2025-02-13T12:05:57.303Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "Competition.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-02-12T13:56:50.293Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "SaveLoadModel.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\ML\\SaveLoadModel.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\ML\\SaveLoadModel.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\ML\\SaveLoadModel.cs",
+              "RelativeToolTip": "AISoccerAPI\\ML\\SaveLoadModel.cs",
+              "ViewState": "AgIAACcAAAAAAAAAAABCwCoAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-28T03:12:42.952Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "FixtureData.cs",
+              "DocumentMoniker": "C:\\Users\\raske\\AppData\\Local\\SourceServer\\08baea40ab9d9fe13a96a815f7d0a7c7be59b735e2d099671dc9aa470b4a415a\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "RelativeDocumentMoniker": "..\\..\\..\\Users\\raske\\AppData\\Local\\SourceServer\\08baea40ab9d9fe13a96a815f7d0a7c7be59b735e2d099671dc9aa470b4a415a\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "ToolTip": "C:\\Users\\raske\\AppData\\Local\\SourceServer\\08baea40ab9d9fe13a96a815f7d0a7c7be59b735e2d099671dc9aa470b4a415a\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "RelativeToolTip": "..\\..\\..\\Users\\raske\\AppData\\Local\\SourceServer\\08baea40ab9d9fe13a96a815f7d0a7c7be59b735e2d099671dc9aa470b4a415a\\Code\\AISoccerAPI\\API\\SoccerAPI\\SoccerRoundFixtures\\FixtureData.cs",
+              "ViewState": "AgIAABEAAAAAAAAAAABSwCsAAABAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-01-31T15:29:03.903Z"
             }
           ]
         }

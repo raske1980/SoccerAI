@@ -1,20 +1,12 @@
-﻿using AISoccerAPI.API.SoccerAPI.SoccerLeagueDetail;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
-using AISoccerAPI.Calculation.SoccerAPI;
 using AISoccerAPI.Serialization;
-using AISoccerAPI.ML;
-using AISoccerAPI.Calculation;
 using AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures;
 using AISoccerAPI.Data;
-using RestSharp;
-using Newtonsoft.Json;
-using AISoccerAPI.Consts;
-using AISoccerAPI.JSON.OpenData;
-using AISoccerAPI.JSON.FootballJSON;
-using AISoccerAPI.JSON.Merge;
 using AISoccerAPI.TensorFlow;
+using AISoccerAPI.JSON.Merge;
+using AISoccerAPI.ML;
 
 
 try
@@ -43,8 +35,7 @@ try
         await new PrepareData().PrepareDataForTraining(appConfig);
 
         //Football API
-        //await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);
-        await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIDataForDates(appConfig);
+        await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);        
 
         //JSON sources
         new Merge().StartMergeJSON(appConfig);
@@ -55,7 +46,7 @@ try
         //train data based on data from all sources
         new TrainModel().StartTrainModel(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
-        //new TrainTFModel().TrainModel(appConfig);
+        new TrainTFModel().TrainModel(appConfig);
     }        
 
     #endregion

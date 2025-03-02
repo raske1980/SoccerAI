@@ -43,10 +43,10 @@ namespace AISoccerAPI.TensorFlow
 
             (NDArray trainX, NDArray trainY, NDArray testX, NDArray testY) = PrepareData(allMatchFeatures);
             var model = BuildModel();
-            model.compile(optimizer: new Adam(learning_rate: 0.01f),
+            model.compile(optimizer: new Adam(learning_rate: 0.001f),
               loss: new MeanSquaredError(),
               metrics: new[] { "mae" });
-            model.fit(trainX, trainY, batch_size: 32, epochs: 100, validation_data: (testX, testY));
+            model.fit(trainX, trainY, batch_size: 256, epochs: 300, validation_data: (testX, testY));
             new SaveLoadTFModel().SaveModel(model, appConfig);
         }
 
@@ -175,34 +175,7 @@ namespace AISoccerAPI.TensorFlow
             return (trainXND, trainYND, testXND, testYND);
         }
 
-        private (NDArray, NDArray, NDArray, NDArray) PrepareData1(List<MatchFeatures> matches)
-        {
-            var inputData = matches.Select(m => new float[]
-            {
-        (float)m.GoalDifference,
-        (float)m.WinRateHome,
-        (float)m.WinRateAway,
-        (float)m.FormMomentumHome,
-        (float)m.FormMomentumAway,
-        (float)m.LeagueRankDifference
-            }).ToArray();
-
-            var outputData = matches.Select(m => new float[]
-            {
-        (float)m.HomeGoals,  // Ensure explicit conversion to float
-        (float)m.AwayGoals
-            }).ToArray();
-
-            int splitIndex = (int)(matches.Count * 0.8); // 80% train, 20% test
-
-            // Explicitly define dtype to ensure proper conversion
-            var trainX = np.array(inputData.Take(splitIndex).ToArray(), dtype: np.float32);
-            var trainY = np.array(outputData.Take(splitIndex).ToArray(), dtype: np.float32);
-            var testX = np.array(inputData.Skip(splitIndex).ToArray(), dtype: np.float32);
-            var testY = np.array(outputData.Skip(splitIndex).ToArray(), dtype: np.float32);
-
-            return (trainX, trainY, testX, testY);
-        }
+        
 
         #endregion
 
