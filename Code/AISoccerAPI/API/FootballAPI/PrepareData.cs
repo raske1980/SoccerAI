@@ -267,7 +267,7 @@ namespace AISoccerAPI.API.FootballAPI
         }
 
         #region Private Methods
-
+        
         private double CalculateFormMomentum(List<APIFixtureResponse> matches, int teamId)
         {
             var lastMatchesOfTeam = matches.Where(x =>

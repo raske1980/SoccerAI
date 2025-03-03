@@ -64,7 +64,7 @@ namespace AISoccerAPI.JSON.Merge
         public async Task StartMergeAPI(AppConfig appConfig)
         {
             //Soccer API
-            await new PrepareData().PrepareDataForTraining(appConfig);
+            await new AISoccerAPI.Data.PrepareData().PrepareDataForTraining(appConfig);
 
             //Football API
             //await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);        
