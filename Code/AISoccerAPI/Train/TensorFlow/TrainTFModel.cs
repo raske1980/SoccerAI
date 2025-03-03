@@ -19,7 +19,7 @@ using Tensorflow.NumPy;
 using static Tensorflow.Binding;
 using static Tensorflow.KerasApi;
 
-namespace AISoccerAPI.TensorFlow
+namespace AISoccerAPI.Train.TensorFlow
 {
     public class TrainTFModel
     {
@@ -46,10 +46,10 @@ namespace AISoccerAPI.TensorFlow
 
             (NDArray trainX, NDArray trainY, NDArray testX, NDArray testY) = PrepareData(allMatchFeatures);
             var model = BuildModel();
-            model.compile(optimizer: new Adam(learning_rate: 0.0001f),
+            model.compile(optimizer: new Adam(learning_rate: 0.001f),
               loss: new MeanSquaredError(),
               metrics: new[] { "mae" });
-            model.fit(trainX, trainY, batch_size: 256, epochs: 300, validation_data: (testX, testY));
+            model.fit(trainX, trainY, batch_size: 128, epochs: 500, validation_data: (testX, testY));
             new SaveLoadTFModel().SaveModel(model, appConfig);
         }
 
@@ -96,8 +96,8 @@ namespace AISoccerAPI.TensorFlow
             // Convert output labels to a 2D float array
             var outputData = matches.Select(m => new float[]
             {
-                (float)m.HomeGoals,
-                (float)m.AwayGoals
+                m.HomeGoals,
+                m.AwayGoals
             }).ToArray();
 
             Console.WriteLine($"Total samples: {inputData.Length}");
@@ -177,9 +177,7 @@ namespace AISoccerAPI.TensorFlow
 
             return (trainXND, trainYND, testXND, testYND);
         }
-
         
-
         #endregion
 
         #endregion

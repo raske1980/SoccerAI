@@ -1,4 +1,5 @@
 ﻿using AISoccerAPI.Calculation;
+using AISoccerAPI.Data;
 using Microsoft.ML;
 using Microsoft.ML.Data;
 using Microsoft.ML.Trainers.FastTree;
@@ -8,12 +9,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AISoccerAPI.ML
+namespace AISoccerAPI.Train.ML
 {
-    public class TrainModel
+    public class TrainMLModel
     {
-        public void StartTrainModel(string csvFilePath)
+        public void StartTrainModel(AppConfig appConfig)
         {
+            //csv file path
+            string csvFilePath = appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName;
             //load and prepare data
             var mlContext = new MLContext();           
             IDataView data = mlContext.Data.LoadFromTextFile<MatchFeatures>(csvFilePath, separatorChar: ',', hasHeader: true);            
@@ -47,8 +50,6 @@ namespace AISoccerAPI.ML
             //save model to the disk
             FileInfo fInfo = new FileInfo(csvFilePath);            
             new SaveLoadModel().SaveModel(fInfo.Directory.FullName, homeModel,awayModel, trainingData); 
-        }
-
-        
+        }        
     }
 }

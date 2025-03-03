@@ -4,9 +4,14 @@ using Microsoft.Extensions.DependencyInjection;
 using AISoccerAPI.Serialization;
 using AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures;
 using AISoccerAPI.Data;
-using AISoccerAPI.TensorFlow;
+using AISoccerAPI.Train.TensorFlow;
 using AISoccerAPI.JSON.Merge;
-using AISoccerAPI.ML;
+using AISoccerAPI.Train.ML;
+using AISoccerAPI.API.FootballData;
+using AISoccerAPI.API.FootballData.Data;
+using Google.Protobuf.WellKnownTypes;
+using System.Linq.Expressions;
+using AISoccerAPI.Train;
 
 
 try
@@ -31,22 +36,11 @@ try
     
     if (appConfig.AppSettingsConfig.TrainData)
     {
-        //Soccer API
-        await new PrepareData().PrepareDataForTraining(appConfig);
+        //merge API and JSON sources
+        await new Merge().StartMergeAll(appConfig);
 
-        //Football API
-        await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);        
-
-        //JSON sources
-        new Merge().StartMergeJSON(appConfig);
-         
-        //merge features from different sources
-        new MergeMultipleSources().MergeFeatures(appConfig);
-
-        //train data based on data from all sources
-        new TrainModel().StartTrainModel(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
-
-        new TrainTFModel().TrainModel(appConfig);
+        //train models
+        new Train().TrainModels(appConfig);
     }        
 
     #endregion
@@ -68,9 +62,11 @@ try
 
     #endregion
 
-    #region New Sources
-    
+    #region New Sources        
+
     #endregion
+
+    Console.ReadLine();
 }
 catch (Exception ex)
 {

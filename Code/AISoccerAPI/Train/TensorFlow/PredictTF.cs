@@ -3,7 +3,7 @@ using Tensorflow; // ✅ Required for tf.constant
 using Tensorflow.Keras.Engine;
 using static Tensorflow.Binding; // ✅ Required for using 'tf'
 
-namespace AISoccerAPI.TensorFlow
+namespace AISoccerAPI.Train.TensorFlow
 {
     public class PredictTF
     {

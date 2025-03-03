@@ -2,7 +2,7 @@
 using Tensorflow;
 using Tensorflow.Keras.Engine;
 
-namespace AISoccerAPI.TensorFlow
+namespace AISoccerAPI.Train.TensorFlow
 {
     public class SaveLoadTFModel
     {

@@ -1,7 +1,7 @@
 ﻿using AISoccerAPI.API.SoccerAPI.SoccerLeagueDetail;
 using AISoccerAPI.Calculation.SoccerAPI;
 using AISoccerAPI.Calculation;
-using AISoccerAPI.ML;
+using AISoccerAPI.Train.ML;
 using AISoccerAPI.Serialization;
 using System;
 using System.Collections.Generic;

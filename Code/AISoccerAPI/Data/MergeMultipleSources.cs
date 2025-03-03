@@ -69,8 +69,22 @@ namespace AISoccerAPI.Data
                 soccerAPIFeatures = new CSVSerialization().
                     LoadFeaturesFromCSV(appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
-            //make union and write them to the API folder
+            //removing duplicates            
+            HashSet<MatchFeatures> footballApiHashSet = new HashSet<MatchFeatures>(footballAPIFeatures);            
+            soccerAPIFeatures.RemoveAll(x => footballApiHashSet.Contains(x));
             footballAPIFeatures.AddRange(soccerAPIFeatures);
+
+            //load third soccer api features
+            var footballDataAPIFeatures = new List<MatchFeatures>();
+            if (File.Exists(appConfig.FootballDataConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
+                footballDataAPIFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(appConfig.SoccerAPIConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+
+            //removing duplicates                        
+            footballDataAPIFeatures.RemoveAll(x => footballApiHashSet.Contains(x));            
+            footballAPIFeatures.AddRange(footballDataAPIFeatures);
+
+            //make union and write them to the API folder
             if (File.Exists(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName))
                 File.Delete(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
 
@@ -87,8 +101,7 @@ namespace AISoccerAPI.Data
                     LoadFeaturesFromCSV(appConfig.AppSettingsConfig.BaseFolderPath + "API\\" + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
             HashSet<MatchFeatures> apiHashSet = new HashSet<MatchFeatures>(apiFeatures);            
 
-            //removing duplicates
-            List<MatchFeatures> toRemove = new List<MatchFeatures>();
+            //removing duplicates            
             jsonFeatures.RemoveAll(x => apiHashSet.Contains(x));                        
 
             new CSVSerialization().SaveFeaturesToCsv(jsonFeatures,

@@ -42,11 +42,36 @@ namespace AISoccerAPI.JSON.Merge
 
         #region Merge/Transform
 
+        public async Task StartMergeAll(AppConfig appConfig)
+        {
+            //collect API data
+            await StartMergeAPI(appConfig);
+
+            //collect JSON data
+            StartMergeJSON(appConfig);
+
+            //merge features from different sources
+            new MergeMultipleSources().MergeFeatures(appConfig);
+        }
+
         public void StartMergeJSON(AppConfig appConfig)
         {
             var openData = new OpenDataExtract().OpenDataExtractPrepareData(appConfig);
             var footballJSON = new FootballJSONExtract().PrepareData(appConfig);
             new Merge().MergeAll(openData, footballJSON, appConfig);
+        }
+
+        public async Task StartMergeAPI(AppConfig appConfig)
+        {
+            //Soccer API
+            await new PrepareData().PrepareDataForTraining(appConfig);
+
+            //Football API
+            //await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIData(appConfig);        
+            await new AISoccerAPI.API.FootballAPI.PrepareData().GetAPIDataForFormMomentum(appConfig);
+
+            //FootballData API
+            await new AISoccerAPI.API.FootballData.FootballDataAPI().PrepareData(appConfig);
         }
 
         #endregion
@@ -291,7 +316,7 @@ namespace AISoccerAPI.JSON.Merge
                                                           x.AwayTeam == team).
                                                           Skip(0).Take(APIConsts.FormMomentumMax).ToList();
 
-            lastMatchesOfTeam = lastMatchesOfTeam.OrderBy(x => x.MatchPlayed).ToList();
+            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x => x.MatchPlayed).ToList();
 
             double sumOfPoints = 0;
             double sumOfWeights = 0;

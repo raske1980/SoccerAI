@@ -145,7 +145,7 @@ namespace AISoccerAPI.Calculation.SoccerAPI
                                                           x.Teams.Away.Id == teamId).
                                                           Skip(0).Take(APIConsts.FormMomentumMax).ToList();
 
-            lastMatchesOfTeam = lastMatchesOfTeam.OrderBy(x=>x.Time.Timestamp).ToList();
+            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x=>x.Time.Timestamp).ToList();
 
             double sumOfPoints = 0;
             double sumOfWeights = 0;

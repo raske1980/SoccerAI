@@ -7,7 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AISoccerAPI.ML
+namespace AISoccerAPI.Train.ML
 {
     public class SaveLoadModel
     {
