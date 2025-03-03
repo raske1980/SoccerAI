@@ -95,8 +95,8 @@
       "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\serialization\\csvserialization.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendata\\opendataextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendata\\opendataextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendatajson\\opendataextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendatajson\\opendataextract.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\footballjson\\data\\league.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -115,12 +115,12 @@
       "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\merge\\data\\jsonmatch.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendata\\data\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendata\\data\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendatajson\\data\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendatajson\\data\\match.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendata\\data\\competition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendata\\data\\competition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\json\\opendatajson\\data\\competition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|solutionrelative:aisoccerapi\\json\\opendatajson\\data\\competition.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{4F9DBBF7-3ED4-4E54-B5C9-9D2561BF3C52}|AISoccerAPI\\AISoccerAPI.csproj|c:\\projekti\\soccerai\\code\\aisoccerapi\\train\\ml\\saveloadmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -461,10 +461,10 @@
               "$type": "Document",
               "DocumentIndex": 23,
               "Title": "OpenDataExtract.cs",
-              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
-              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
-              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
-              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenData\\OpenDataExtract.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenDataJSON\\OpenDataExtract.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenDataJSON\\OpenDataExtract.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenDataJSON\\OpenDataExtract.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenDataJSON\\OpenDataExtract.cs",
               "ViewState": "AgIAADgAAAAAAAAAAADwv1UAAABSAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-12T13:51:54.365Z",
@@ -486,10 +486,10 @@
               "$type": "Document",
               "DocumentIndex": 28,
               "Title": "Match.cs",
-              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
-              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
-              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
-              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenData\\Data\\Match.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Match.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Match.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Match.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Match.cs",
               "ViewState": "AgIAAEoAAAAAAAAAAAA4wFMAAAAYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-12T14:00:45.83Z"
@@ -522,10 +522,10 @@
               "$type": "Document",
               "DocumentIndex": 29,
               "Title": "Competition.cs",
-              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
-              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
-              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
-              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenData\\Data\\Competition.cs",
+              "DocumentMoniker": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Competition.cs",
+              "RelativeDocumentMoniker": "AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Competition.cs",
+              "ToolTip": "C:\\projekti\\SoccerAI\\Code\\AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Competition.cs",
+              "RelativeToolTip": "AISoccerAPI\\JSON\\OpenDataJSON\\Data\\Competition.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-02-12T13:56:50.293Z"

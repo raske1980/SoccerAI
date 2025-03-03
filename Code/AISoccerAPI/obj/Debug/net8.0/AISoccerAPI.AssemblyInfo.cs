@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("AISoccerAPI")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+29fde87b428f6c62676c7e14afc7d31da345a5eb")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+9e545025123fa1b8c12de461f65d95123fbe0ae2")]
 [assembly: System.Reflection.AssemblyProductAttribute("AISoccerAPI")]
 [assembly: System.Reflection.AssemblyTitleAttribute("AISoccerAPI")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
