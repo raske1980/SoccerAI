@@ -1,5 +1,6 @@
 ﻿using AISoccerAPI.Data;
 using AISoccerAPI.Train.ML;
+using AISoccerAPI.Train.TensorFlow;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -30,7 +31,7 @@ namespace AISoccerAPI.Train
             //train data based on data from all sources
             new TrainMLModel().StartTrainModel(appConfig);
 
-            //new TrainTFModel().TrainModel(appConfig);
+            new TrainTFModel().TrainModel(appConfig);
         }
 
         #endregion

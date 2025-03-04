@@ -9,6 +9,7 @@ using AISoccerAPI.JSON.OpenData.Data;
 using AISoccerAPI.Serialization;
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -46,14 +47,39 @@ namespace AISoccerAPI.JSON.Merge
         {
             var allMatchFeatures = new CSVSerialization().
                     LoadFeaturesFromCSV(new DirectoryInfo(appConfig.AppSettingsConfig.BaseFolderPath) + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
-            int i = 0;
-            foreach(var matchFeature in allMatchFeatures)
+            //int i = 0;
+            //foreach(var matchFeature in allMatchFeatures)
+            //{
+            //    matchFeature.FormMomentumHome = CalculateFormMomentum(allMatchFeatures, matchFeature.HomeTeam, matchFeature.Date);
+            //    matchFeature.FormMomentumAway = CalculateFormMomentum(allMatchFeatures, matchFeature.AwayTeam, matchFeature.Date);
+            //    Console.WriteLine($"Form momentum #{i} updated");
+            //    i++;
+            //}
+
+            // Precompute dates once and create a dictionary of matches by team
+            var matchesByTeam = allMatchFeatures
+                .Select(x => new MatchFeatureExt(x)) // Convert to extended type
+                .GroupBy(x => x.HomeTeam) // Group by home team
+                .ToDictionary(g => g.Key, g => g.OrderByDescending(x => x.ParsedDateTime).ToList());
+
+            var awayMatchesByTeam = allMatchFeatures
+                .Select(x => new MatchFeatureExt(x)) // Convert again for away teams
+                .GroupBy(x => x.AwayTeam)
+                .ToDictionary(g => g.Key, g => g.OrderByDescending(x => x.ParsedDateTime).ToList());
+
+            int totalRecords = allMatchFeatures.Count;
+            int processed = 0;
+
+            // Parallel processing
+            Parallel.ForEach(allMatchFeatures, matchFeature =>
             {
-                matchFeature.FormMomentumHome = CalculateFormMomentum(allMatchFeatures, matchFeature.HomeTeam, matchFeature.Date);
-                matchFeature.FormMomentumAway = CalculateFormMomentum(allMatchFeatures, matchFeature.AwayTeam, matchFeature.Date);
-                Console.WriteLine($"Form momentum #{i} updated");
-                i++;
-            }
+                matchFeature.FormMomentumHome = CalculateFormMomentum(matchesByTeam, matchFeature.HomeTeam, matchFeature.Date);
+                matchFeature.FormMomentumAway = CalculateFormMomentum(awayMatchesByTeam, matchFeature.AwayTeam, matchFeature.Date);
+
+                // Progress tracking
+                int count = Interlocked.Increment(ref processed);
+                if (count % 5000 == 0) Console.WriteLine($"{count}/{totalRecords} records updated");
+            });
 
             new CSVSerialization().SaveFeaturesToCsv(allMatchFeatures, appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
         }
@@ -67,10 +93,7 @@ namespace AISoccerAPI.JSON.Merge
             StartMergeJSON(appConfig);
 
             //merge features from different sources
-            new MergeMultipleSources().MergeFeatures(appConfig);
-            
-            //fix for updating form momentum
-            //UpdateFormMomentum(appConfig);
+            new MergeMultipleSources().MergeFeatures(appConfig);                        
         }
 
         public void StartMergeJSON(AppConfig appConfig)
@@ -99,55 +122,51 @@ namespace AISoccerAPI.JSON.Merge
 
         #region Private Methods
 
-        private double CalculateFormMomentum(List<MatchFeatures> matches, string teamName, string date)
+        private double CalculateFormMomentum(Dictionary<string, List<MatchFeatureExt>> matchesByTeam, string teamName, string date)
         {
-            string[] dateArr = date.Split(new char[1] { '/'});
+            if (!matchesByTeam.ContainsKey(teamName)) return 0d;
+
             DateTime parsedDate = DateTime.MinValue;
-            if (dateArr.Length > 2)            
-                parsedDate = new DateTime(Int32.Parse(dateArr[2]), Int32.Parse(dateArr[1]), Int32.Parse(dateArr[0]));            
-
-            var lastMatchesOfTeam = matches.
-                                            ConvertAll(x=> new MatchFeatureExt(x)).
-                                            Where(x=>(x.HomeTeam == teamName || x.AwayTeam == teamName) && x.ParsedDateTime < parsedDate).
-                                            ToList();
-
-            var matchList = lastMatchesOfTeam.OrderByDescending(x => x.ParsedDateTime).
-                                                                                        Skip(0).
-                                                                                        Take(APIConsts.FormMomentumMax).
-                                                                                        ToList();
-
-            if (matchList.Count == 0)
-                return 0d;
-
-            double sumOfPoints = 0;
-            double sumOfWeights = 0;
-            var listOfWeights = CalculateSoccerAPI.GetWeights();
-            for (var i = 0; i < matchList.Count; i++)
+            try
             {
-                double weight = listOfWeights[i];
+                parsedDate = DateTime.ParseExact(date, "d/M/yyyy", CultureInfo.InvariantCulture);
+            }
+            catch(Exception ex)
+            {
+                if(date.Contains("-"))
+                    parsedDate = DateTime.ParseExact(date, "yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+            
+            //2022-05-09
 
+            var matchList = matchesByTeam[teamName]
+                .Where(x => x.ParsedDateTime < parsedDate)
+                .OrderByDescending(x=> x.ParsedDateTime)
+                .Take(APIConsts.FormMomentumMax)
+                .ToList();
+
+            if (!matchList.Any()) return 0d;
+
+            var weights = CalculateSoccerAPI.GetWeights();
+            double sumOfPoints = 0, sumOfWeights = 0;
+
+            for (int i = 0; i < matchList.Count; i++)
+            {
+                double weight = weights[i];
                 sumOfWeights += weight;
-                var isHomeTeam = matchList[i].HomeTeam == teamName ? true : false;
 
-                float parseHomeScore = matchList[i].HomeGoals;
-                float parseAwayScore = matchList[i].AwayGoals;
-                if (isHomeTeam)
-                    sumOfPoints += weight *
-                        (parseHomeScore > parseAwayScore ?
-                        APIConsts.Win :
-                        (parseHomeScore == parseAwayScore ?
-                        APIConsts.Draw : APIConsts.Lost));
-                else
-                    sumOfPoints += weight *
-                        (parseAwayScore > parseHomeScore ?
-                        APIConsts.Win :
-                        (parseAwayScore == parseHomeScore ?
-                        APIConsts.Draw : APIConsts.Lost));
+                bool isHomeTeam = matchList[i].HomeTeam == teamName;
+                float homeScore = matchList[i].HomeGoals;
+                float awayScore = matchList[i].AwayGoals;
+
+                sumOfPoints += weight * (isHomeTeam
+                    ? (homeScore > awayScore ? APIConsts.Win : homeScore == awayScore ? APIConsts.Draw : APIConsts.Lost)
+                    : (awayScore > homeScore ? APIConsts.Win : awayScore == homeScore ? APIConsts.Draw : APIConsts.Lost));
             }
 
-            double formMomentum = sumOfPoints / sumOfWeights;
-            return formMomentum;
+            return sumOfPoints / sumOfWeights;
         }
+
 
         private List<JSONMatch> TransformOpenDataMatches(Dictionary<string, List<(int competitionId, List<OpenData.Data.Match> matches)>> openDataJSON,
             AppConfig appConfig,

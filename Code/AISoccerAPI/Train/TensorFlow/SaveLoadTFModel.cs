@@ -9,13 +9,13 @@ namespace AISoccerAPI.Train.TensorFlow
         // ✅ Save Model
         public void SaveModel(IModel model, AppConfig appConfig)
         {
-            model.save(appConfig.AppSettingsConfig.BaseTenserFlowPath);            
+            model.save(appConfig.TenserFlowConfig.ModelTenserFlowPath);            
         }
 
         // ✅ Load Model
         public IModel LoadModel(AppConfig appConfig)
         {
-            var model = KerasApi.keras.models.load_model(appConfig.AppSettingsConfig.BaseTenserFlowPath); // ✅ Correct way to load            
+            var model = KerasApi.keras.models.load_model(appConfig.TenserFlowConfig.ModelTenserFlowPath); // ✅ Correct way to load            
             return model;
         }
     }
