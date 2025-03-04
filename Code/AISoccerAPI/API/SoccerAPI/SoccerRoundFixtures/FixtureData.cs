@@ -71,10 +71,10 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
             //load models
             var models = new SaveLoadModel().LoadModels(
                 new FileInfo(appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName).Directory.FullName);
-
-            //var tfModel = new SaveLoadTFModel().LoadModel(appConfig);
-            //GetTFVariables(pastMatches, tfModel);
-
+            var tfModel = new SaveLoadTFModel().LoadModel(appConfig);
+            var trainDataList = new CSVSerialization().LoadTrainDataFromCSV(appConfig.TenserFlowConfig.BaseTenserFlowPath + appConfig.TenserFlowConfig.LogTrainingValues);
+            if(trainDataList.Count > 0)
+                trainDataList = trainDataList.OrderByDescending(x => x.Ticks).ToList();
 
             List<MatchPredictionResult> predictions = new List<MatchPredictionResult>();
 
@@ -127,22 +127,48 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
 
                 //add prediction to the list with its duplicate that will serve as actual match data where we are going to populate with actual results                
                 //tf predictions
-                //newMatch.HomeTeam = homeTeam;
-                //newMatch.AwayTeam = awayTeam;
-                //var predictionTF = new PredictTF().Predict(newMatch, tfModel);
-                //predictions.Add(new MatchPredictionResult
-                //{
-                //    Category = MatchCategory.Prediction,
-                //    Source = PredictionSource.TF,
-                //    HomeTeam = homeTeam,
-                //    AwayTeam = awayTeam,
-                //    HomeTeamGoalRange = string.Empty,// $"{Math.Floor(predictionTF.homeGoalsPrediction - tfVariables.mae)} - {Math.Ceiling(predictionTF.homeGoalsPrediction + tfVariables.mae)}",
-                //    AwayTeamGoalRange = string.Empty,// $"{Math.Floor(predictionTF.awayGoalsPrediction - tfVariables.mae)} - {Math.Ceiling(predictionTF.awayGoalsPrediction + tfVariables.mae)}",
-                //    HomeTeamGoals = Math.Round(predictionTF.homeGoalsPrediction, 1),
-                //    AwayTeamGoals = Math.Round(predictionTF.awayGoalsPrediction, 1),
-                //    TotalGoals = Math.Round(Math.Round(predictionTF.homeGoalsPrediction, 1) + Math.Round(predictionTF.awayGoalsPrediction, 1), 1),
-                //    DatePlayed = currentRoundFixture.Time.Date
-                //});
+                newMatch.HomeTeam = homeTeam;
+                newMatch.AwayTeam = awayTeam;
+                var predictionTF = new PredictTF().Predict(newMatch, tfModel);
+                var trainData = trainDataList.Count > 0 ? trainDataList[0] : null;
+                string homeRange = string.Empty;
+                double lowerHomeRange = 0;
+                double upperHomeRange = 0;
+                if (trainData != null) 
+                {
+                    lowerHomeRange = Math.Round((Math.Round(predictionTF.homeGoalsPrediction, 1) - Math.Round(Math.Sqrt(trainData.ValLoss), 1)),1);
+                    if (lowerHomeRange < 0)
+                        lowerHomeRange = 0;
+                    upperHomeRange = Math.Round((Math.Round(predictionTF.homeGoalsPrediction, 1) + Math.Round(Math.Sqrt(trainData.ValLoss), 1)),1);
+                    homeRange = $"{lowerHomeRange} - {upperHomeRange}";
+                }
+
+                string awayRange = string.Empty;
+                double lowerAwayRange = 0;
+                double upperAwayRange = 0;
+                if (trainData != null) 
+                {
+                    lowerAwayRange = Math.Round((Math.Round(predictionTF.awayGoalsPrediction, 1) - Math.Round(Math.Sqrt(trainData.ValLoss), 1)),1);
+                    if (lowerAwayRange < 0)
+                        lowerAwayRange = 0;
+                    upperAwayRange = Math.Round((Math.Round(predictionTF.awayGoalsPrediction, 1) + Math.Round(Math.Sqrt(trainData.ValLoss), 1)),1);
+                    awayRange = $"{lowerAwayRange} - {upperAwayRange}";
+                }
+                string totalRange = $"{Math.Round(lowerAwayRange + lowerHomeRange,1)} - {Math.Round(upperHomeRange + upperAwayRange,1)}";
+                predictions.Add(new MatchPredictionResult
+                {
+                    Category = MatchCategory.Prediction,
+                    Source = PredictionSource.TF,
+                    HomeTeam = homeTeam,
+                    AwayTeam = awayTeam,
+                    HomeTeamGoalRange = homeRange,
+                    AwayTeamGoalRange = awayRange,
+                    TotalGoalsRange = totalRange,
+                    HomeTeamGoals = Math.Round(predictionTF.homeGoalsPrediction, 1),
+                    AwayTeamGoals = Math.Round(predictionTF.awayGoalsPrediction, 1),
+                    TotalGoals = Math.Round(Math.Round(predictionTF.homeGoalsPrediction, 1) + Math.Round(predictionTF.awayGoalsPrediction, 1), 1),
+                    DatePlayed = currentRoundFixture.Time.Date
+                });
 
                 //ml predictions
                 predictions.Add(new MatchPredictionResult
@@ -155,6 +181,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                     AwayTeamGoals = Math.Round(predictedAwayGoals, 1),
                     HomeTeamGoalRange = string.Empty,
                     AwayTeamGoalRange = string.Empty,
+                    TotalGoalsRange = string.Empty,
                     TotalGoals = Math.Round(Math.Round(predictedHomeGoals, 1) + Math.Round(predictedAwayGoals, 1), 1),
                     DatePlayed = currentRoundFixture.Time.Date
                 });
@@ -170,6 +197,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                     AwayTeamGoals = 0,
                     HomeTeamGoalRange = string.Empty,
                     AwayTeamGoalRange = string.Empty,
+                    TotalGoalsRange = string.Empty,
                     TotalGoals = 0,
                     DatePlayed = currentRoundFixture.Time.Date
                 });

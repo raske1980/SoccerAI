@@ -28,6 +28,7 @@ namespace AISoccerAPI.Data
         public string HomeTeamGoalRange { get; set; }
         public string AwayTeamGoalRange { get; set; }
         public double TotalGoals { get; set; }
+        public string TotalGoalsRange { get; set; }
         public string DatePlayed { get; set; }
         public string Source { get; set; }        
     }

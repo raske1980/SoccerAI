@@ -1,6 +1,7 @@
 ﻿using AISoccerAPI.Calculation;
 using AISoccerAPI.Data;
 using AISoccerAPI.Serialization;
+using AISoccerAPI.Train.TensorFlow.Callbacks;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 using Tensorflow;
 using Tensorflow.Keras;
 using Tensorflow.Keras.ArgsDefinition;
+using Tensorflow.Keras.Callbacks;
 using Tensorflow.Keras.Engine;
 using Tensorflow.Keras.Layers;
 using Tensorflow.Keras.Losses;
@@ -41,15 +43,27 @@ namespace AISoccerAPI.Train.TensorFlow
             if (allMatchFeatures == null || allMatchFeatures.Count == 0)            
                 throw new Exception("No match data available for training.");
 
+            int epochCount = appConfig.TenserFlowConfig.EpochCount;
+            int batchSize = appConfig.TenserFlowConfig.BatchSize;
+            float lr = appConfig.TenserFlowConfig.LearningRate;
+
             DateTime parsedDate = DateTime.MinValue;
             allMatchFeatures.OrderByDescending(x => { DateTime.TryParse(x.Date, out parsedDate); return parsedDate; });
 
             (NDArray trainX, NDArray trainY, NDArray testX, NDArray testY) = PrepareData(allMatchFeatures);
             var model = BuildModel();
-            model.compile(optimizer: new Adam(learning_rate: 0.001f),
+            model.compile(optimizer: new Adam(learning_rate: lr),
               loss: new MeanSquaredError(),
               metrics: new[] { "mae" });
-            model.fit(trainX, trainY, batch_size: 128, epochs: 500, validation_data: (testX, testY));
+            
+            var callbackParams = new CallbackParams
+            {
+                Model = model,
+                Epochs = epochCount,                
+            };
+            var logCallBack = new LogCallback(callbackParams, appConfig);
+
+            model.fit(trainX, trainY, batch_size: batchSize, epochs: epochCount, validation_data: (testX, testY), callbacks: new List<ICallback> { logCallBack });
             new SaveLoadTFModel().SaveModel(model, appConfig);
         }
 

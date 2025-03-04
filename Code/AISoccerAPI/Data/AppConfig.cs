@@ -166,6 +166,10 @@ namespace AISoccerAPI.Data
 
         public string BaseTenserFlowPath { get; set; }
         public string ModelTenserFlowPath { get; set; }
+        public string LogTrainingValues { get; set; }
+        public int EpochCount { get; set; }
+        public int BatchSize { get; set; }
+        public float LearningRate { get; set; }
 
         #endregion
 
@@ -175,6 +179,10 @@ namespace AISoccerAPI.Data
         {
             this.BaseTenserFlowPath = configuration["TenserFlow:baseTenserFlowPath"];
             this.ModelTenserFlowPath = configuration["TenserFlow:modelTenserFlowPath"];
+            this.LogTrainingValues = configuration["TenserFlow:logTrainingValues"];
+            this.EpochCount = Convert.ToInt32(configuration["TenserFlow:epochCount"]);
+            this.BatchSize = Convert.ToInt32(configuration["TenserFlow:batchSize"]);
+            this.LearningRate = Single.Parse(configuration["TenserFlow:learningRate"]);
         }
 
         #endregion
