@@ -61,8 +61,8 @@ namespace AISoccerAPI.API.FootballAPI
                             //if (matchDate.Day == 1 && matchDate.Month == 1 && matchDate.Year == 1)
                             //    DateTime.TryParse(fixture.Fixture.Date, out matchDate);
                             //feature.Date = matchDate.ToString("dd/MM/yyyy");
-                            var homeMomentum =  CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Home.Id);
-                            var awayMomentum = CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Away.Id);
+                            var homeMomentum =  CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Home.Id, fixture.Fixture.Date);
+                            var awayMomentum = CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Away.Id, fixture.Fixture.Date);
                         }
                     }
                 }
@@ -116,8 +116,8 @@ namespace AISoccerAPI.API.FootballAPI
                             if (matchDate.Day == 1 && matchDate.Month == 1 && matchDate.Year == 1)
                                 DateTime.TryParse(fixture.Fixture.Date, out matchDate);
                             feature.Date = matchDate.ToString("dd/MM/yyyy");
-                            var formMomentumHome = CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Home.Id);
-                            var formMomentumAway = CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Away.Id);
+                            var formMomentumHome = CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Home.Id, fixture.Fixture.Date);
+                            var formMomentumAway = CalculateFormMomentum(keyValuePair.Value.Response, fixture.Teams.Away.Id, fixture.Fixture.Date);
                             feature.FormMomentumAway = formMomentumAway;
                             feature.FormMomentumHome = formMomentumHome;
                         }
@@ -217,8 +217,8 @@ namespace AISoccerAPI.API.FootballAPI
 
                         var winRate = CalculateWinRate(fixture, seasonResponse);
                         var goalDiff = CalculateGoalDifference(seasonResponse, fixture);
-                        double formMomentumHome = CalculateFormMomentum(seasonResponse, fixture.Teams.Home.Id);
-                        double formMomentumAway = CalculateFormMomentum(seasonResponse, fixture.Teams.Away.Id);
+                        double formMomentumHome = CalculateFormMomentum(seasonResponse, fixture.Teams.Home.Id, fixture.Fixture.Date);
+                        double formMomentumAway = CalculateFormMomentum(seasonResponse, fixture.Teams.Away.Id, fixture.Fixture.Date);
 
                         var matchDate = new DateTime(fixture.Fixture.Timestamp);
                         if (matchDate.Day == 1 && matchDate.Month == 1 && matchDate.Year == 1)
@@ -268,14 +268,20 @@ namespace AISoccerAPI.API.FootballAPI
 
         #region Private Methods
         
-        private double CalculateFormMomentum(List<APIFixtureResponse> matches, int teamId)
+        private double CalculateFormMomentum(List<APIFixtureResponse> matches, int teamId, string date)
         {
+            DateTime parsedDate = DateTime.MinValue;
+            DateTime.TryParse(date, out parsedDate);
             var lastMatchesOfTeam = matches.Where(x =>
                                                           x.Teams.Home.Id == teamId ||
                                                           x.Teams.Away.Id == teamId).
-                                                          Skip(0).Take(APIConsts.FormMomentumMax).ToList();
-
-            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x => x.Fixture.Timestamp).ToList();
+                                                          ToList();            
+            lastMatchesOfTeam = lastMatchesOfTeam.
+                                                  Where(x=> new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(x.Fixture.Timestamp) < parsedDate).
+                                                  OrderByDescending(x => new DateTime(1970, 1, 1, 0, 0, 0, 0).AddSeconds(x.Fixture.Timestamp)).
+                                                  Skip(0).
+                                                  Take(APIConsts.FormMomentumMax).
+                                                  ToList();
 
             double sumOfPoints = 0;
             double sumOfWeights = 0;

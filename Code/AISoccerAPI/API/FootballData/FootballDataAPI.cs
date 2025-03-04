@@ -62,8 +62,8 @@ namespace AISoccerAPI.API.FootballData
 
                         var winRate = CalculateWinRate(match, matches);
                         var goalDiff = CalculateGoalDifference(matches, match);
-                        double formMomentumHome = CalculateFormMomentum(matches, match.HomeTeam.Name);
-                        double formMomentumAway = CalculateFormMomentum(matches, match.AwayTeam.Name);
+                        double formMomentumHome = CalculateFormMomentum(matches, match.HomeTeam.Name, match.UtcDate);
+                        double formMomentumAway = CalculateFormMomentum(matches, match.AwayTeam.Name, match.UtcDate);
 
                         toReturn.Add(new MatchFeatures
                         {
@@ -114,17 +114,20 @@ namespace AISoccerAPI.API.FootballData
             return pointsByTeam;
         }
 
-        private double CalculateFormMomentum(List<MatchRes> seasonMatches, string team)
+        private double CalculateFormMomentum(List<MatchRes> seasonMatches, string team, string matchDate)
         {
+            DateTime parsedDate = DateTime.MinValue;
+            DateTime.TryParse(matchDate, out parsedDate);
             var lastMatchesOfTeam = seasonMatches.Where(x =>
-                                                          x.HomeTeam.Name == team ||
-                                                          x.AwayTeam.Name == team).
-                                                          Skip(0).Take(APIConsts.FormMomentumMax).ToList();
+                                                          (x.HomeTeam.Name == team ||
+                                                          x.AwayTeam.Name == team) && DateTime.Parse(x.UtcDate) < parsedDate).
+                                                          ToList();
 
             lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x => { 
                                                                             DateTime parsedDate = DateTime.MinValue; 
                                                                             DateTime.TryParse(x.UtcDate, out parsedDate); 
                                                                             return parsedDate; }).
+                                                                            Skip(0).Take(APIConsts.FormMomentumMax).
                                                                             ToList();
 
             double sumOfPoints = 0;

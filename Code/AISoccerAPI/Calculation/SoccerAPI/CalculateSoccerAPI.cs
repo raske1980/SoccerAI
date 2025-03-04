@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -69,8 +70,8 @@ namespace AISoccerAPI.Calculation.SoccerAPI
 
                 var goalDiffRes = CalculateGoalDifference(matches, match);                                
                 var winRateRes = CalculateWinRate(matches, match);                
-                double formMomentumHome = CalculateFormMomentum(matches, match.Teams.Home.Id);                                
-                double formMomentumAway = CalculateFormMomentum(matches, match.Teams.Away.Id);
+                double formMomentumHome = CalculateFormMomentum(matches, match.Teams.Home.Id, match.Time.Timestamp);                                
+                double formMomentumAway = CalculateFormMomentum(matches, match.Teams.Away.Id, match.Time.Timestamp);
 
                 #endregion
 
@@ -138,14 +139,15 @@ namespace AISoccerAPI.Calculation.SoccerAPI
             return (winRateHome, winRateAway);
         }        
 
-        private double CalculateFormMomentum(List<Datum> matches, int teamId)
+        private double CalculateFormMomentum(List<Datum> matches, int teamId, int matchTimeStamp)
         {
+            DateTime matchDate = new DateTime(matchTimeStamp);
             var lastMatchesOfTeam = matches.Where(x =>
-                                                          x.Teams.Home.Id == teamId ||
-                                                          x.Teams.Away.Id == teamId).
-                                                          Skip(0).Take(APIConsts.FormMomentumMax).ToList();
+                                                          (x.Teams.Home.Id == teamId ||
+                                                          x.Teams.Away.Id == teamId) && new DateTime(x.Time.Timestamp) < matchDate).
+                                                          ToList();
 
-            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x=>x.Time.Timestamp).ToList();
+            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x=>x.Time.Timestamp).Skip(0).Take(APIConsts.FormMomentumMax).ToList();
 
             double sumOfPoints = 0;
             double sumOfWeights = 0;

@@ -42,6 +42,22 @@ namespace AISoccerAPI.JSON.Merge
 
         #region Merge/Transform
 
+        public void UpdateFormMomentum(AppConfig appConfig)
+        {
+            var allMatchFeatures = new CSVSerialization().
+                    LoadFeaturesFromCSV(new DirectoryInfo(appConfig.AppSettingsConfig.BaseFolderPath) + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+            int i = 0;
+            foreach(var matchFeature in allMatchFeatures)
+            {
+                matchFeature.FormMomentumHome = CalculateFormMomentum(allMatchFeatures, matchFeature.HomeTeam, matchFeature.Date);
+                matchFeature.FormMomentumAway = CalculateFormMomentum(allMatchFeatures, matchFeature.AwayTeam, matchFeature.Date);
+                Console.WriteLine($"Form momentum #{i} updated");
+                i++;
+            }
+
+            new CSVSerialization().SaveFeaturesToCsv(allMatchFeatures, appConfig.AppSettingsConfig.BaseFolderPath + appConfig.AppSettingsConfig.MatchFeaturesCSVFileName);
+        }
+
         public async Task StartMergeAll(AppConfig appConfig)
         {
             //collect API data
@@ -52,6 +68,9 @@ namespace AISoccerAPI.JSON.Merge
 
             //merge features from different sources
             new MergeMultipleSources().MergeFeatures(appConfig);
+            
+            //fix for updating form momentum
+            //UpdateFormMomentum(appConfig);
         }
 
         public void StartMergeJSON(AppConfig appConfig)
@@ -79,6 +98,56 @@ namespace AISoccerAPI.JSON.Merge
         #endregion
 
         #region Private Methods
+
+        private double CalculateFormMomentum(List<MatchFeatures> matches, string teamName, string date)
+        {
+            string[] dateArr = date.Split(new char[1] { '/'});
+            DateTime parsedDate = DateTime.MinValue;
+            if (dateArr.Length > 2)            
+                parsedDate = new DateTime(Int32.Parse(dateArr[2]), Int32.Parse(dateArr[1]), Int32.Parse(dateArr[0]));            
+
+            var lastMatchesOfTeam = matches.
+                                            ConvertAll(x=> new MatchFeatureExt(x)).
+                                            Where(x=>(x.HomeTeam == teamName || x.AwayTeam == teamName) && x.ParsedDateTime < parsedDate).
+                                            ToList();
+
+            var matchList = lastMatchesOfTeam.OrderByDescending(x => x.ParsedDateTime).
+                                                                                        Skip(0).
+                                                                                        Take(APIConsts.FormMomentumMax).
+                                                                                        ToList();
+
+            if (matchList.Count == 0)
+                return 0d;
+
+            double sumOfPoints = 0;
+            double sumOfWeights = 0;
+            var listOfWeights = CalculateSoccerAPI.GetWeights();
+            for (var i = 0; i < matchList.Count; i++)
+            {
+                double weight = listOfWeights[i];
+
+                sumOfWeights += weight;
+                var isHomeTeam = matchList[i].HomeTeam == teamName ? true : false;
+
+                float parseHomeScore = matchList[i].HomeGoals;
+                float parseAwayScore = matchList[i].AwayGoals;
+                if (isHomeTeam)
+                    sumOfPoints += weight *
+                        (parseHomeScore > parseAwayScore ?
+                        APIConsts.Win :
+                        (parseHomeScore == parseAwayScore ?
+                        APIConsts.Draw : APIConsts.Lost));
+                else
+                    sumOfPoints += weight *
+                        (parseAwayScore > parseHomeScore ?
+                        APIConsts.Win :
+                        (parseAwayScore == parseHomeScore ?
+                        APIConsts.Draw : APIConsts.Lost));
+            }
+
+            double formMomentum = sumOfPoints / sumOfWeights;
+            return formMomentum;
+        }
 
         private List<JSONMatch> TransformOpenDataMatches(Dictionary<string, List<(int competitionId, List<OpenData.Data.Match> matches)>> openDataJSON,
             AppConfig appConfig,
@@ -258,8 +327,8 @@ namespace AISoccerAPI.JSON.Merge
 
                             var winRate = CalculateWinRate(seasonMatch, seasonMatches);
                             var goalDiff = CalculateGoalDifference(seasonMatches, seasonMatch);
-                            double formMomentumHome = CalculateFormMomentum(seasonMatches, seasonMatch.HomeTeam);
-                            double formMomentumAway = CalculateFormMomentum(seasonMatches, seasonMatch.AwayTeam);
+                            double formMomentumHome = CalculateFormMomentum(seasonMatches, seasonMatch.HomeTeam, seasonMatch.MatchPlayed);
+                            double formMomentumAway = CalculateFormMomentum(seasonMatches, seasonMatch.AwayTeam, seasonMatch.MatchPlayed);
 
                             matchFeatures.Add(new MatchFeatures
                             {
@@ -309,14 +378,14 @@ namespace AISoccerAPI.JSON.Merge
             return pointsByTeam;
         }
 
-        private double CalculateFormMomentum(List<JSONMatch> seasonMatches, string team)
+        private double CalculateFormMomentum(List<JSONMatch> seasonMatches, string team, DateTime matchPlayed)
         {
             var lastMatchesOfTeam = seasonMatches.Where(x =>
-                                                          x.HomeTeam == team ||
-                                                          x.AwayTeam == team).
-                                                          Skip(0).Take(APIConsts.FormMomentumMax).ToList();
+                                                          (x.HomeTeam == team ||
+                                                          x.AwayTeam == team) && x.MatchPlayed < matchPlayed).
+                                                          ToList();
 
-            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x => x.MatchPlayed).ToList();
+            lastMatchesOfTeam = lastMatchesOfTeam.OrderByDescending(x => x.MatchPlayed).Skip(0).Take(APIConsts.FormMomentumMax).ToList();
 
             double sumOfPoints = 0;
             double sumOfWeights = 0;

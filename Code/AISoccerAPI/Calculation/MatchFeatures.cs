@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace AISoccerAPI.Calculation
 {
     public class MatchFeatures
     {
+        #region Properties
+
         [LoadColumn(0)]
         public int MatchId { get; set; }
         [LoadColumn(1)]
@@ -34,6 +37,37 @@ namespace AISoccerAPI.Calculation
         [LoadColumn(11)]
         public float AwayGoals { get; set; }
 
+        #endregion
+
+        #region Constructors
+
+        public MatchFeatures()
+        {
+
+        }
+
+        public MatchFeatures(MatchFeatures matchFeatures)
+        {
+            this.MatchId = matchFeatures.MatchId;
+            this.Date = matchFeatures.Date;            
+            this.HomeTeam = matchFeatures.HomeTeam;
+            this.AwayTeam = matchFeatures.AwayTeam;
+            this.AwayGoals = matchFeatures.AwayGoals;
+            this.HomeGoals = matchFeatures.HomeGoals;
+            this.FormMomentumAway = matchFeatures.FormMomentumAway;
+            this.FormMomentumHome = matchFeatures.FormMomentumHome;
+            this.GoalDifference = matchFeatures.GoalDifference;
+            this.LeagueRankDifference = matchFeatures.LeagueRankDifference;
+            this.WinRateAway = matchFeatures.WinRateAway;
+            this.WinRateHome = matchFeatures.WinRateHome;
+        }
+
+        #endregion
+
+        #region Methods
+
+        #region Overrides
+
         public override bool Equals(object? obj)
         {
             if (obj != null)
@@ -53,6 +87,24 @@ namespace AISoccerAPI.Calculation
         public override int GetHashCode()
         {
             return this.Date.GetHashCode() + this.HomeTeam.GetHashCode() + this.AwayTeam.GetHashCode();
+        }
+
+        #endregion
+
+        #endregion
+    }
+
+    public class MatchFeatureExt : MatchFeatures
+    {
+        public DateTime ParsedDateTime { get; set; }
+        public MatchFeatureExt(MatchFeatures matchFeature) : base(matchFeature)
+        {
+            DateTime parsedDate = DateTime.MinValue;            
+            string[] dateArr = matchFeature.Date.Split(new char[1] { '/' });            
+            if (dateArr.Length > 2)
+                parsedDate = new DateTime(Int32.Parse(dateArr[2]), Int32.Parse(dateArr[1]), Int32.Parse(dateArr[0]));
+
+            this.ParsedDateTime = parsedDate;
         }
     }
 

@@ -124,6 +124,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                 Console.WriteLine($"Predicted Home Goals For {homeTeam}: {Math.Round(predictedHomeGoals,1)}");
                 Console.WriteLine($"Predicted Away Goals For {awayTeam}: {Math.Round(predictedAwayGoals,1)}");
                 Console.WriteLine($"Predicted Total Goals For {homeTeam} - {awayTeam}: {Math.Round(Math.Round(predictedHomeGoals,1) + Math.Round(predictedAwayGoals,1),1)}");
+
                 //add prediction to the list with its duplicate that will serve as actual match data where we are going to populate with actual results                
                 //tf predictions
                 //newMatch.HomeTeam = homeTeam;
@@ -142,6 +143,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                 //    TotalGoals = Math.Round(Math.Round(predictionTF.homeGoalsPrediction, 1) + Math.Round(predictionTF.awayGoalsPrediction, 1), 1),
                 //    DatePlayed = currentRoundFixture.Time.Date
                 //});
+
                 //ml predictions
                 predictions.Add(new MatchPredictionResult
                 {
@@ -156,6 +158,7 @@ namespace AISoccerAPI.API.SoccerAPI.SoccerRoundFixtures
                     TotalGoals = Math.Round(Math.Round(predictedHomeGoals, 1) + Math.Round(predictedAwayGoals, 1), 1),
                     DatePlayed = currentRoundFixture.Time.Date
                 });
+
                 //actual result
                 predictions.Add(new MatchPredictionResult
                 {
